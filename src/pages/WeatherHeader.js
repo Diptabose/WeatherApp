@@ -74,10 +74,10 @@ function PlacesFromSearch(props){
    }
    
   const placelist=(
-    <li key={lat} className='list-none truncate py-2 border-b-[1px] border-gray-400 hover:bg-gray-400' onClick={()=>{
+    <Link key={lat} className='block list-none truncate py-2 border-b-[1px] border-gray-400 hover:bg-gray-400' onClick={()=>{
       setInput(name+" ,"+state+" ,"+country);
       setDisplay('hidden');
-      sendLocation(pos);}} >{name+" ,"+state+" ,"+country}</li>
+      sendLocation(pos);}} >{name+" ,"+state+" ,"+country}</Link>
     );
   return placelist;
 }
