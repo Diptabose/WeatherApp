@@ -95,7 +95,7 @@ function loadLocalLocation(){
 }
 
 const weatherheader=(
-<div className={`z-[3] flex flex-col sticky top-0 ${theme.bgcolor}  ${theme.textcolor} transition-[background-color] duration-700`}>
+<div className={`flex flex-col ${theme.bgcolor} ${theme.textcolor} transition-[background-color] duration-700`}>
   <div id="location and search" className="flex-auto py-3 flex items-center">
     <button className={`flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:${theme.iconHoverColor} before:hover:opacity-30 `} onClick={loadLocalLocation}>
        <img className={`w-6 h-6 ${theme.invert}`} src={Location} alt="location"  />

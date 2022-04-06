@@ -98,7 +98,7 @@ function localWeather(){
 const weather=(
  <div  className={` w-full min-h-screen text-white ${theme.bgcolor} transition-[background-color] duration-700 `}>
   <Router>
-  <div className=''>
+  <div className='sticky top-0 z-[3]'>
     <WeatherHeader  
         /*apiKey={props.apiKey}*/
         isLoading={loading}
