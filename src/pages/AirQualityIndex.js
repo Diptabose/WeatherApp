@@ -30,13 +30,13 @@ const {main, components}= props.aqi;
 const aqi=(
 <div>
  <p className={`text-xl font-bold ${theme.textcolor} `}>AirQualityIndex</p>
-  <div className={`flex items-center justify-around border-t-2 ${theme.bordercolor}`}>
+  <div className={`flex items-center justify-around border-t-2 ${theme.bordercolor} sm:justify-around md:justify-center lg:justify-center`}>
   <div className="h-40 w-40 rounded-full bg-rose-600 my-2 flex flex-col items-center justify-center">
         <p className="text-4xl tracking-">AQI</p>
         <h1 className="text-3xl font-bold">{main.aqi}</h1>
   </div>
     
-  <div className="rounded-lg py-2 bg-sky-700 flex my-2 p-4 ">
+  <div className="rounded-lg py-2 bg-sky-700 flex my-2 md:mx-5 lg:mx-5 p-4 ">
     <div id="left" className="flex flex-col items-stretch">
       {
         Object.entries(components).map((element)=>{

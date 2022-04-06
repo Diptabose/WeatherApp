@@ -19,7 +19,7 @@ function WeatherHeader(props){
   const [searchResults,setSearchResults]=useState([]);
   const [searchCross,setSearchCross]=useState(Search);
   const [redBorder, setRedBorder]=useState("");
-  const [display,setDisplay]=useState('');
+  const [display,setDisplay]=useState('hidden');
   function handleInput(e){
     let text= e.target.value;
     setInput(text);
@@ -28,9 +28,15 @@ function WeatherHeader(props){
       setSearchCross(Search);
     }
   }
+  
+  function handleEnterClick(e){
+    if(e.keyCode===13){
+         searchLocationWeather();
+    }
+  }
   useEffect(()=>{
     if(isDarkMode){
-      setMargin('2');
+      setMargin('6');
     }
     else{
       setMargin('0');
@@ -44,6 +50,7 @@ function WeatherHeader(props){
   async function searchLocationWeather(){
     if(searchCross===Search&&input.length!==0){
         setSearchCross(Close);
+        setDisplay('block');
         setLoading(true);
         try{
           let geo = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=3&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
@@ -58,7 +65,7 @@ function WeatherHeader(props){
     else if(searchCross===Close){
      setInput("");
      setSearchCross(Search);
-     setDisplay('');
+     setDisplay('hidden');
      if(searchResults.length!==0){
         setSearchResults([]);
       }
@@ -74,7 +81,7 @@ function PlacesFromSearch(props){
    }
    
   const placelist=(
-    <Link to='/' key={lat} className='list-none truncate py-2 border-b-[1px] border-gray-400 hover:bg-gray-400 block' onClick={()=>{
+    <Link to='/' key={lat} className='list-none truncate py-2 px-3 border-b-[1px] border-gray-400 hover:bg-gray-400 block' onClick={()=>{
       setInput(name+" ,"+state+" ,"+country);
       setDisplay('hidden');
       sendLocation(pos);}} >{name+" ,"+state+" ,"+country}
@@ -88,20 +95,17 @@ function loadLocalLocation(){
 }
 
 const weatherheader=(
-<div className={`z-[3] border flex flex-col sticky top-0 ${theme.bgcolor}  ${theme.textcolor} transition-[background-color] duration-700`}>
-
-  <div id="location and search" className="border flex-auto py-3 flex items-center  md:items-center lg:items-center ">
-  
-    <button className='border flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:bg-gray-300 before:hover:opacity-30 ' onClick={loadLocalLocation}>
+<div className={`z-[3] flex flex-col sticky top-0 ${theme.bgcolor}  ${theme.textcolor} transition-[background-color] duration-700`}>
+  <div id="location and search" className="flex-auto py-3 flex items-center">
+    <button className={`flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:${theme.iconHoverColor} before:hover:opacity-30 `} onClick={loadLocalLocation}>
        <img className={`w-6 h-6 ${theme.invert}`} src={Location} alt="location"  />
     </button>
-    
     <div className={`flex flex-auto bg-transparent border-b-2 ${theme.bordercolor} relative ${redBorder}`}>
-      <div className='flex flex-auto border items-center justify-between'>
-        <input ref={searchField} className={` bg-transparent flex-auto border outline-none placeholder:text-white-500 `}  placeholder="Search for city, state or country" value={input}  disabled={props.isLoading} type="text" autocomplete='off' onChange={handleInput}/>
-        <button onClick={searchLocationWeather} className='w-6 h-6 border' ><img className={`${theme.invert}`} src={searchCross} alt='search' /></button>
+      <div className='flex flex-auto items-center justify-between'>
+        <input ref={searchField} className={` bg-transparent flex-auto outline-none placeholder:text-white-500 `}  placeholder="Search for city, state or country" value={input}  disabled={props.isLoading} type="text" autocomplete='off' onChange={handleInput} onKeyUp={handleEnterClick} />
+        <button onClick={searchLocationWeather} className='w-6 h-6' ><img className={`${theme.invert}`} src={searchCross} alt='search' /></button>
       </div>
-      <div className={`${display} border w-full mt-2 px-3 rounded-md  bg-white top-full absolute text-black  ${(searchCross===Search)?('max-h-0 overflow-hidden'):("")}`} >
+      <div className={`${display} w-full mt-2  py-1 rounded-md  bg-white top-full absolute text-black`} >
         {
          (loading)?(<Spinner />):
          (
@@ -115,18 +119,15 @@ const weatherheader=(
        }
       </div>
     </div>
-    {/*<div className="border flex items-center">*/}
-      <Link className={`border flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:bg-gray-300 before:hover:opacity-30`} to='/savedlocations' >
+      <Link className={`flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:${theme.iconHoverColor} before:hover:opacity-30`} to='/savedlocations' >
           <img className={` w-6 h-6`}src={Building} alt="" />
       </Link>
-      <button className={`border w-12 h-5 rounded-l-full rounded-r-full bg-sky-600 px-1 flex py-3 items-center`} onClick={handleDarkTheme}>
+      <button className={`mr-1 w-12 h-5 rounded-l-full rounded-r-full bg-sky-600 px-1 flex py-3 items-center`} onClick={handleDarkTheme}>
           <div className={`w-4 h-4 rounded-full transition-[margin-left] duration-[350] bg-white ml-${margin} ease-in`}>
           </div>
       </button>
-      
-    {/*</div>*/}
   </div>
-  <div className=" flex items-center justify-between px-2 font-bold sm:justify-center md:justify-center md:mr-4 lg:justify-around" >
+  <div className=" flex items-center justify-between px-2 font-bold sm:justify-center md:mx-3 md:justify-center  lg:justify-around" >
     <Link className=" rounded-l-full rounded-r-full px-2 border-b-2 border-sky-600 "to='/' disabled={props.isLoading}>Today</Link>
     <Link className=" rounded-l-full rounded-r-full px-2  border-sky-600 border-b-2"to='/tommorow' disabled={props.isLoading}>Tommorow</Link>
     <Link className=" rounded-l-full rounded-r-full px-2 border-sky-600  border-b-2" to='/sevenday' disbaled={props.isLoading} >8 Days</Link>

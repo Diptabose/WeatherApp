@@ -58,7 +58,7 @@ function metric(param){
 
 function WeatherParamsSetter(props){
   const details=(
-<div className="flex items-center mb-2 w-40">
+<div className="flexitems-center mb-2 w-40">
   <div className="flex flex-col flex-1 items-center justify-center mr-2"> 
     <img className="w-10 h-10" src={SetWeatherImages(props.param)} alt={props.param} />
     <p className="font-bold">{props.param}</p>
