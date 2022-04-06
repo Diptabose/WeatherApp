@@ -10,6 +10,7 @@ import NoPage from './NoPage.js';
 import {BrowserRouter as Router ,Routes , Route} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {lightTheme, darkTheme } from '../Theme.js';
+
 function Weather(props){
   
   const isDarkMode = useSelector((state)=>state.darkmode);
@@ -27,7 +28,29 @@ function Weather(props){
   });
   const [searchUserLocation, setUserLocation]=useState({userSearching:false,coords:{latitude:null,longitude:null}});
   
-  
+  const fetchWeather=useCallback(async(pos)=>{
+  try{
+    let weatherdata = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=66d9420ba608bc0e68e2a6dffe8361ab&units=metric`);
+    let weatherJSON= await weatherdata.json();
+    
+    let oneCallData=await fetch(`http://api.openweathermap.org/data/2.5/onecall?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&exclude=minutely&appid=66d9420ba608bc0e68e2a6dffe8361ab&units=metric`)
+    let oneCallJSON= await oneCallData.json();
+
+    let aqi= await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
+      let parseAqi= await aqi.json();
+     if(weatherJSON.cod===200){
+        setWdata({weatherData:weatherJSON,oneCallData:oneCallJSON ,Aqi:parseAqi});
+      }
+      else{
+     setGPSStatus({isGPS:0,alertMsg:"Error:"+weatherJSON.cod +" "+weatherJSON.msg})
+         }
+    }
+    catch(error){
+      setGPSStatus({isGPS:0,alertMsg:"Error in retrieving information . Try again by reloading..."})
+      setLoading(false);
+    }
+    setLoading(false);
+  },[])
   
 const Location=useCallback(()=>{
  if(!searchUserLocation.userSearching){
@@ -48,7 +71,7 @@ const Location=useCallback(()=>{
  else{
    fetchWeather(searchUserLocation)
  }
-},[searchUserLocation])
+},[searchUserLocation,fetchWeather])
 
 
 useEffect(()=>{
@@ -59,29 +82,7 @@ useEffect(()=>{
   },[Location]);
 
 
-async function fetchWeather(pos){
-  try{
-    let weatherdata = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=66d9420ba608bc0e68e2a6dffe8361ab&units=metric`);
-    let weatherJSON= await weatherdata.json();
-    
-    let oneCallData=await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&exclude=minutely&appid=66d9420ba608bc0e68e2a6dffe8361ab&units=metric`)
-    let oneCallJSON= await oneCallData.json();
 
-    let aqi= await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
-      let parseAqi= await aqi.json();
-     if(weatherJSON.cod===200){
-        setWdata({weatherData:weatherJSON,oneCallData:oneCallJSON ,Aqi:parseAqi});
-      }
-      else{
-     setGPSStatus({isGPS:0,alertMsg:"Error:"+weatherJSON.cod +" "+weatherJSON.msg})
-         }
-    }
-    catch(error){
-      setGPSStatus({isGPS:0,alertMsg:"Error in retrieving information . Try again by reloading..."})
-      setLoading(false);
-    }
-    setLoading(false);
-  }
   
 function changingToUserCoords(pos){
   setUserLocation({userSearching:true,coords:{latitude:pos.coords.lat,longitude:pos.coords.long}});
@@ -95,13 +96,15 @@ function localWeather(){
   setLoading(true);
 }
 const weather=(
- <div  className={`px-4 w-full min-h-screen text-white ${theme.bgcolor} transition-[background-color] duration-700 `}>
+ <div  className={`px-2 w-full min-h-screen text-white ${theme.bgcolor} transition-[background-color] duration-700 `}>
   <Router>
     <WeatherHeader  
+        /*apiKey={props.apiKey}*/
         isLoading={loading}
         toggleDarkMode={props.toggleDarkMode}
         switchToUserLocation={changingToUserCoords}
         currentLocation={localWeather}
+        
       />
     {
       (loading)?(<Spinner />):(

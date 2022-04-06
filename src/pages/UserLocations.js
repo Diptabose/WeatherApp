@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import {lightTheme ,darkTheme} from '../Theme.js';
 import weatherbg from '../WeatherBG';
 import {Link} from 'react-router-dom';
+
 function UserLocations(props){
   const {lat , lon, place }=props;
   const isDarkMode=useSelector((state)=>state.darkmode);
@@ -107,7 +108,7 @@ const ul=(
       }
   </div>
   <div className=" flex flex-col items-end sticky bottom-0 pb-4">
-    <button className={`flex items-center justify-center relative w-14 h-14 rounded-full  mx-2 text-5xl bg-sky-700 text-white shadow-md ${theme.boxshadow} `} onClick={()=>{addLocation({location:place, lat:lat,long:lon})}}    >
+    <button className={`flex items-center justify-center relative w-14 h-14 rounded-full  mx-2 text-5xl bg-sky-700 text-white shadow-md ${theme.boxshadow} `} onClick={()=>{addLocation({location:place, lat:lat,long:lon})}}   disabled={lat===undefined||place===undefined||lon===undefined} >
         &#43;
     </button>
   </div>

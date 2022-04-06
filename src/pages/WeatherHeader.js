@@ -30,7 +30,7 @@ function WeatherHeader(props){
   }
   useEffect(()=>{
     if(isDarkMode){
-      setMargin('6');
+      setMargin('2');
     }
     else{
       setMargin('0');
@@ -46,7 +46,7 @@ function WeatherHeader(props){
         setSearchCross(Close);
         setLoading(true);
         try{
-          let geo = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=3&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
+          let geo = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=3&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
           let geoParse = await geo.json();
           setSearchResults(geoParse);
           setLoading(false);
@@ -74,10 +74,11 @@ function PlacesFromSearch(props){
    }
    
   const placelist=(
-    <Link to='/' key={lat} className='block list-none truncate py-2 border-b-[1px] border-gray-400 hover:bg-gray-400' onClick={()=>{
+    <Link to='/' key={lat} className='list-none truncate py-2 border-b-[1px] border-gray-400 hover:bg-gray-400 block' onClick={()=>{
       setInput(name+" ,"+state+" ,"+country);
       setDisplay('hidden');
-      sendLocation(pos);}} >{name+" ,"+state+" ,"+country}</Link>
+      sendLocation(pos);}} >{name+" ,"+state+" ,"+country}
+    </Link>
     );
   return placelist;
 }
@@ -87,15 +88,20 @@ function loadLocalLocation(){
 }
 
 const weatherheader=(
-<div className={`z-[3] flex flex-col sticky top-0 ${theme.bgcolor}  ${theme.textcolor} transition-[background-color] duration-700`}>
-  <div id="location and search" className="py-3 flex items-center sm:justify-center md:justify-center lg:items-center ">
-    <button className=" mr-2"><img className={`w-6 h-6 ${theme.invert}`} src={Location} alt="location" onClick={loadLocalLocation} /></button>
-    <div className={`flex  bg-transparent border-b-2 ${theme.bordercolor} relative ${redBorder}`}>
-      <div className='flex justify-evenly'>
-        <input ref={searchField} className={` bg-transparent outline-none placeholder:text-white-500 `}  placeholder="Search for city state or country" value={input}  disabled={props.isLoading} type="text" autocomplete='off' onChange={handleInput}/>
-        <button onClick={searchLocationWeather} className="" ><img className={`${theme.invert} w-5 h-5`} src={searchCross} alt='search' /></button>
+<div className={`z-[3] border flex flex-col sticky top-0 ${theme.bgcolor}  ${theme.textcolor} transition-[background-color] duration-700`}>
+<div className='flex items-center justify-between'>
+  <div id="location and search" className="border flex-auto py-3 flex items-center  md:items-stretch lg:items-center ">
+  
+    <button className='border flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:bg-gray-300 before:hover:opacity-30 ' onClick={loadLocalLocation}>
+       <img className={`w-6 h-6 ${theme.invert}`} src={Location} alt="location"  />
+    </button>
+    
+    <div className={`flex flex-auto bg-transparent border-b-2 ${theme.bordercolor} relative ${redBorder}`}>
+      <div className='flex flex-auto border items-center justify-between'>
+        <input ref={searchField} className={` bg-transparent flex-auto border outline-none placeholder:text-white-500 `}  placeholder="Search for city, state or country" value={input}  disabled={props.isLoading} type="text" autocomplete='off' onChange={handleInput}/>
+        <button onClick={searchLocationWeather} className='w-6 h-6 border' ><img className={`${theme.invert}`} src={searchCross} alt='search' /></button>
       </div>
-      <div className={`${display} w-full mt-2 px-3 rounded-md  bg-white top-full absolute text-black  ${(searchCross===Search)?('max-h-0 overflow-hidden'):("")}`} >
+      <div className={`${display} border w-full mt-2 px-3 rounded-md  bg-white top-full absolute text-black  ${(searchCross===Search)?('max-h-0 overflow-hidden'):("")}`} >
         {
          (loading)?(<Spinner />):
          (
@@ -109,17 +115,20 @@ const weatherheader=(
        }
       </div>
     </div>
-    <div className="flex items-center">
-      <Link className={`flex items-center justify-center relative w-10 h-10 rounded-full  mx-2 text-3xl text-white before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:bg-gray-300 before:hover:opacity-30`} to='/savedlocations' >
+    {/*<div className="border flex items-center">*/}
+      <Link className={`border flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:bg-gray-300 before:hover:opacity-30`} to='/savedlocations' >
           <img className={` w-7 h-7`}src={Building} alt="" />
       </Link>
-      <button className={`w-12 h-5 rounded-l-full rounded-r-full bg-sky-600 px-1 flex py-3 items-center`} onClick={handleDarkTheme}>
+    </div>
+    <div className='flex border items-center justify-center'>
+      <button className={`border w-12 h-5 rounded-l-full rounded-r-full bg-sky-600 px-1 flex py-3 items-center`} onClick={handleDarkTheme}>
           <div className={`w-4 h-4 rounded-full transition-[margin-left] duration-[350] bg-white ml-${margin} ease-in`}>
           </div>
       </button>
-    </div>
+      </div>
+    {/*</div>*/}
   </div>
-  <div className="pb-2 flex flex-none items-center justify-between px-2 font-bold sm:justify-center md:justify-around lg:justify-around" >
+  <div className=" flex items-center justify-between px-2 font-bold sm:justify-center md:justify-center md:mr-4 lg:justify-around" >
     <Link className=" rounded-l-full rounded-r-full px-2 border-b-2 border-sky-600 "to='/' disabled={props.isLoading}>Today</Link>
     <Link className=" rounded-l-full rounded-r-full px-2  border-sky-600 border-b-2"to='/tommorow' disabled={props.isLoading}>Tommorow</Link>
     <Link className=" rounded-l-full rounded-r-full px-2 border-sky-600  border-b-2" to='/sevenday' disbaled={props.isLoading} >8 Days</Link>
