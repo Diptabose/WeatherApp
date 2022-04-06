@@ -114,7 +114,7 @@ const weatherheader=(
              return <PlacesFromSearch place={element} key={element.lat} toUserLocation={props.switchToUserLocation} />
                }))
                :
-           (<div className="py-4">No results found</div>)
+           (<div className="py-4 px-3">No results found</div>)
         )
        }
       </div>
