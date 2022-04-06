@@ -58,7 +58,7 @@ function metric(param){
 
 function WeatherParamsSetter(props){
   const details=(
-<div className="flexitems-center mb-2 w-40">
+<div className="flex items-center mb-2 w-40">
   <div className="flex flex-col flex-1 items-center justify-center mr-2"> 
     <img className="w-10 h-10" src={SetWeatherImages(props.param)} alt={props.param} />
     <p className="font-bold">{props.param}</p>
@@ -128,11 +128,11 @@ function WeatherDetails(props){
   
 const weatherdetails=(
 <div className={`${theme.textcolor} my-1`}>
-  <p className={`${theme.textcolor} text-xl font-bold `}>Details</p>
-  <div className={`border-t-2 pt-2 ${theme.bordercolor} `}>
-    <div className={`rounded-lg py-2 ${theme.detailsColor} flex my-2 `}>
+  <p className={`${theme.textcolor} text-xl font-bold`}>Details</p>
+  <div className={`border-t-2 pt-2 ${theme.bordercolor}`}>
+    <div className={`rounded-lg py-2 ${theme.detailsColor} flex my-2`}>
       <div id="left" className="w-1/2 flex flex-col items-center border-r-2">
-        <div className=" flex flex-col items-start">
+        <div className=" flex flex-col items-start ">
           {
           Object.entries(detailsLeft).map((element)=>{
           return  <WeatherParamsSetter key={element[0]} param={element[0]} paramvalue={element[1]} />
@@ -140,7 +140,7 @@ const weatherdetails=(
           }
         </div>
       </div>
-      <div id="right" className="w-1/2 flex flex-col items-center ">
+      <div id="right" className="w-1/2 flex flex-col items-center">
         <div className="flex flex-col items-start">
           {
            Object.entries(detailsRight).map((element)=>{
