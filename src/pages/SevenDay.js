@@ -81,7 +81,7 @@ function SevenDayTemplate(props){
             <p className='py-1'>UVI</p>
           </div>
           <div className="pl-3 flex flex-col flex-1 items-start">
-              <p>{windspeed} m/s</p>
+              <p>{Math.floor(windspeed)} m/s</p>
               <p className='py-1'>{winddegree}°</p>
               <p>{clouds}%</p>
               <p className='py-1'>{uvi}</p>
