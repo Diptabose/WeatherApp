@@ -53,7 +53,7 @@ function WeatherHeader(props){
         setDisplay('block');
         setLoading(true);
         try{
-          let geo = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=3&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
+          let geo = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=3&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
           let geoParse = await geo.json();
           setSearchResults(geoParse);
           setLoading(false);

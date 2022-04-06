@@ -30,13 +30,13 @@ function Weather(props){
   
   const fetchWeather=useCallback(async(pos)=>{
   try{
-    let weatherdata = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=66d9420ba608bc0e68e2a6dffe8361ab&units=metric`);
+    let weatherdata = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=66d9420ba608bc0e68e2a6dffe8361ab&units=metric`);
     let weatherJSON= await weatherdata.json();
     
-    let oneCallData=await fetch(`http://api.openweathermap.org/data/2.5/onecall?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&exclude=minutely&appid=66d9420ba608bc0e68e2a6dffe8361ab&units=metric`)
+    let oneCallData=await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&exclude=minutely&appid=66d9420ba608bc0e68e2a6dffe8361ab&units=metric`)
     let oneCallJSON= await oneCallData.json();
 
-    let aqi= await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
+    let aqi= await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
       let parseAqi= await aqi.json();
      if(weatherJSON.cod===200){
         setWdata({weatherData:weatherJSON,oneCallData:oneCallJSON ,Aqi:parseAqi});
