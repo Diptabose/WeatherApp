@@ -96,8 +96,9 @@ function localWeather(){
   setLoading(true);
 }
 const weather=(
- <div  className={`px-2 w-full min-h-screen text-white ${theme.bgcolor} transition-[background-color] duration-700 `}>
+ <div  className={` w-full min-h-screen text-white ${theme.bgcolor} transition-[background-color] duration-700 `}>
   <Router>
+  <div className=''>
     <WeatherHeader  
         /*apiKey={props.apiKey}*/
         isLoading={loading}
@@ -106,6 +107,8 @@ const weather=(
         currentLocation={localWeather}
         
       />
+    </div> 
+    <div className='mx-4'>
     {
       (loading)?(<Spinner />):(
           (gpsStatus.isGPS!==1)?(
@@ -127,7 +130,9 @@ const weather=(
             )
           )
         }
+    </div>
   </Router>
+
 </div>
   );
 return weather;

@@ -89,8 +89,8 @@ function loadLocalLocation(){
 
 const weatherheader=(
 <div className={`z-[3] border flex flex-col sticky top-0 ${theme.bgcolor}  ${theme.textcolor} transition-[background-color] duration-700`}>
-<div className='flex items-center justify-between'>
-  <div id="location and search" className="border flex-auto py-3 flex items-center  md:items-stretch lg:items-center ">
+
+  <div id="location and search" className="border flex-auto py-3 flex items-center  md:items-center lg:items-center ">
   
     <button className='border flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:bg-gray-300 before:hover:opacity-30 ' onClick={loadLocalLocation}>
        <img className={`w-6 h-6 ${theme.invert}`} src={Location} alt="location"  />
@@ -117,15 +117,13 @@ const weatherheader=(
     </div>
     {/*<div className="border flex items-center">*/}
       <Link className={`border flex items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:bg-gray-300 before:hover:opacity-30`} to='/savedlocations' >
-          <img className={` w-7 h-7`}src={Building} alt="" />
+          <img className={` w-6 h-6`}src={Building} alt="" />
       </Link>
-    </div>
-    <div className='flex border items-center justify-center'>
       <button className={`border w-12 h-5 rounded-l-full rounded-r-full bg-sky-600 px-1 flex py-3 items-center`} onClick={handleDarkTheme}>
           <div className={`w-4 h-4 rounded-full transition-[margin-left] duration-[350] bg-white ml-${margin} ease-in`}>
           </div>
       </button>
-      </div>
+      
     {/*</div>*/}
   </div>
   <div className=" flex items-center justify-between px-2 font-bold sm:justify-center md:justify-center md:mr-4 lg:justify-around" >
