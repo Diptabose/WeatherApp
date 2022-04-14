@@ -107,8 +107,8 @@ const ul=(
         </div>)
       }
   </div>
-  <div className=" flex flex-col items-end sticky bottom-0 pb-4">
-    <button className={`flex items-center justify-center relative w-14 h-14 rounded-full  mx-2 text-5xl bg-sky-700 text-white shadow-md ${theme.boxshadow} `} onClick={()=>{addLocation({location:place, lat:lat,long:lon})}}   disabled={lat===undefined||place===undefined||lon===undefined} >
+  <div className=" flex flex-col items-end sticky bottom-0 pb-4 ">
+    <button className={`flex items-center justify-center w-14 h-14 mx-2 rounded-full  text-5xl bg-sky-700 text-white shadow-md ${theme.boxshadow} `} onClick={()=>{addLocation({location:place, lat:lat,long:lon})}}   disabled={lat===undefined||place===undefined||lon===undefined} >
         &#43;
     </button>
   </div>
