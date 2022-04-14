@@ -15,7 +15,7 @@ function WeatherReport(props){
     {
       return "Good Morning";
     }
-    else if(h>12&&h<=3)
+    else if(h>12&&h<=15)
     {
       return "Good Afternoon"
     }
