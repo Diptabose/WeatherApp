@@ -31,6 +31,7 @@ It is card based ui , when clicked expands to give a more detailed report of the
 The building icon , loads a list of saved  location cards , when clicked , opens the weather of that corresponding location.Initially its empty and pressing the '+' icon adds current location to local storage .
 The location cards also has a minus button to remove the saved location from storage.
 
+Changelogs:
 Initial Release v1.0.0
 Features :
 1) Made navbar fixed.
