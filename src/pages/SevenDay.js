@@ -61,30 +61,30 @@ function SevenDayTemplate(props){
            
         <div className={`flex flex-1 border-r-2 ${theme.bordercolor}`}>
           <div className='flex flex-col flex-1'>
-            <p>Sunrise</p>
-            <p className='py-1'>Sunset</p>
-            <p>Humidity</p>
-            <p className='py-1' >Pressure</p>
+            <p className='truncate'>Sunrise</p>
+            <p className='py-1 truncate'>Sunset</p>
+            <p className='truncate'>Humidity</p>
+            <p className='py-1 truncate' >Pressure</p>
           </div>
           <div className="flex flex-col flex-1 items-start">
-            <p>{SunSetter(sunrise)}</p>
-            <p className='py-1'>{SunSetter(sunset)}</p>
-            <p>{humidity}%</p>
-            <p className='py-1'>{pressure} hPa</p>
+            <p className='truncate'>{SunSetter(sunrise)}</p>
+            <p className='py-1 truncate'>{SunSetter(sunset)}</p>
+            <p className='truncate'>{humidity}%</p>
+            <p className='py-1 truncate'>{pressure} hPa</p>
           </div>
         </div>
         <div className='flex flex-1 pl-3'>
           <div className='flex flex-col flex-1'>
-            <p>WindSpeed</p>
-            <p className='py-1'>WindDegree</p>
-            <p>Clouds</p>
-            <p className='py-1'>UVI</p>
+            <p className='truncate'>WindSpeed</p>
+            <p className='py-1 truncate'>WindDegree</p>
+            <p className='truncate'>Clouds</p>
+            <p className='py-1 truncate'>UVI</p>
           </div>
           <div className="pl-3 flex flex-col flex-1 items-start">
-              <p>{Math.floor(windspeed)} m/s</p>
-              <p className='py-1'>{winddegree}°</p>
-              <p>{clouds}%</p>
-              <p className='py-1'>{uvi}</p>
+              <p className='truncate'>{Math.floor(windspeed)} m/s</p>
+              <p className='py-1 truncate'>{winddegree}°</p>
+              <p className='truncate'>{clouds}%</p>
+              <p className='py-1 truncate'>{uvi}</p>
           </div>
         </div>
       </div>

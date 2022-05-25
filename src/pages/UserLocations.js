@@ -5,7 +5,7 @@ import weatherbg from '../WeatherBG';
 import {Link} from 'react-router-dom';
 
 function UserLocations(props){
-  const {lat , lon, place }=props;
+  const {lat , lon, place ,toaster }=props;
   const isDarkMode=useSelector((state)=>state.darkmode);
   const theme=(isDarkMode)?(darkTheme):(lightTheme);
   const[userLocation, setUserLocation]=useState([]);
@@ -13,10 +13,6 @@ function UserLocations(props){
   useEffect(()=>{
     loadLocation();
   },[]);
-  
-  
-  
-  
   
   
  function LocationTemplate(props){
@@ -72,12 +68,19 @@ function loadLocation(){
    let itemFound=false;
     for(let i=0;i<userLocation.length;i++){
       if(userLocation[i].location===newlocation.location)
-      {itemFound=true; break;}
+      {
+        itemFound=true; 
+      //  toaster({showState:true,msg:'Location already exists'});
+      toaster(true,'Location already exists');
+        break;
+      }
     }
     if(!itemFound){
     let newUserLocations= [newlocation,...userLocation];
     window.localStorage.setItem('userLocations',JSON.stringify(newUserLocations));
     setUserLocation(newUserLocations);
+  //toaster({showState:true,msg:'Location Added'});
+  toaster(true,'Loaction Added');
     if ("vibrate" in navigator) {
     window.navigator.vibrate(100);
     }
@@ -94,21 +97,29 @@ function loadLocation(){
    
 const ul=(
   <div className={`relative flex flex-col py-2 `}>
-    <div>
-    {
+    <div>{
       (userLocation.length!==0)?(
         userLocation.map((element)=>{
         return <LocationTemplate data={element} key={element.lat} cardRemove={removeLocationCard}
           saved={props.loadSavedLocation}
          />
         })
-        ):(<div className={`${theme.textcolor} border border-rose-600 px-2 py-4 mb-4 rounded-md text-center border-[3px]`}>No Locations Stored...
+        ):(
+          
+      <div className={`${theme.textcolor} border border-rose-600 px-2 py-4 mb-4 rounded-md text-center border-[3px]`}> 
+            No Locations Stored...
            <div>Press the '+' icon to add current location </div>
-        </div>)
-      }
-  </div>
-  <div className=" flex flex-col items-end sticky bottom-0 pb-4 ">
-    <button className={`flex items-center justify-center w-14 h-14 rounded-full text-5xl bg-sky-700 text-white shadow-md ${theme.boxshadow} `} onClick={()=>{addLocation({location:place, lat:lat,long:lon})}}   disabled={lat===undefined||place===undefined||lon===undefined} >
+        </div>
+        )
+      }</div>
+    
+  <div className="flex flex-col items-end sticky bottom-0 pb-4" >
+      <button className={`flex items-center justify-center w-14 h-14 rounded-full text-5xl bg-sky-700 text-white shadow-md ${theme.boxshadow}`} onClick={()=>{
+      
+      //toaster(false,null);
+      addLocation({location:place, lat:lat,long:lon});
+      
+    }} disabled={lat===undefined||place===undefined||lon===undefined} >
         &#43;
     </button>
   </div>

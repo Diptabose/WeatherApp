@@ -29,7 +29,7 @@ function WeatherReport(props){
   const weatherreport=(
   <div className={`${theme.textcolor} flex flex-col justify-center pt-1`}>
     <p >{greeter()}</p>
-    <p className={`${theme.textcolor} text-3xl font bold`}>{(props.today)?(null):('Its Tommorow!!!')}</p>
+    <p className={`${theme.textcolor} text-3xl font bold`}>{(props.today)?(null):('Its Tomorrow!!!')}</p>
     <p id="loactionName" className="text-2xl font-bold">{props.place}</p>
     <p>{(props.today)?(new Date(dt*1000).toDateString()):(new Date(dt*1000).toDateString())}</p>
     <div id="weatherimg and temp" className={`flex flex-col`}>

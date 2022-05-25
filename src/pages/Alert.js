@@ -14,15 +14,15 @@ borderColor="border-rose-700";
    }
 
   const alert=(
-  <div className="h-screen" >
-    <div className="h-1/2 flex flex-col justify-between sm:h-2/5 md:h-2/5 lg:h-2/5">
-    <div className={`${theme.textcolor} px-4 py-2 mt-4  ${borderColor} border-2 border rounded-md font-bold`}>
+  <div className="h-screen">
+  <div className='h-1/2 flex flex-col justify-between sm:h-2/5 md:h-2/5 lg:h-2/5  '>
+    <div className={`${theme.textcolor} px-4 py-2 mt-4  ${borderColor} border-2 border rounded-md font-bold relative top-0`}>
            {props.data.alertMsg}
     </div>
-    <div className=" self-center">
+    <div className="self-center">
       <img className="w-40 h-40" src={props.data.isGPS===0?NoSignal:NoService} alt="NoService/NoSignal" />
     </div>
-  </div>
+   </div>
 </div>
   );
 return alert;

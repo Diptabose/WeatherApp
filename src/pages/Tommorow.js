@@ -51,7 +51,7 @@ function Tommorow(props){
   
   let hourlyData = props.tommorowData.hourly.slice(24);
   const tommorow=(
-    <div>
+    <div >
       <WeatherReport place={props.place} today={false} weatherdata={weatherData} />
       <WeatherHourly hourly={hourlyData} />
       <WeatherPlot hourly={hourlyData} />

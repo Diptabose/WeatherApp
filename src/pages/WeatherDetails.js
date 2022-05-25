@@ -64,7 +64,7 @@ function WeatherParamsSetter(props){
     <p className="font-bold">{props.param}</p>
   </div>
   <div className='flex flex-1 items-center'>
-    <p className='' >{props.paramvalue}{metric(props.param)}</p>
+    <p className='truncate' >{props.paramvalue}{metric(props.param)}</p>
   </div>
 </div>
   );
@@ -156,14 +156,14 @@ const weatherdetails=(
       <div className=" flex items-center
      justify-between">
         <div className=" flex flex-col">
-          <img className="w-10 h-10"src={images.sunrise} alt="wind" />
+          <img className="w-10 h-10"src={images.sunrise} alt="sunrise" />
           <p>{SunSetter(sys.sunrise*1000)}</p>
         </div>
       <div ref={sunbar} className="flex-auto h-4 rounded-r-full rounded-l-full bg-gradient-to-r from-amber-300 via-orange-600 to-gray-700 flex items-center relative">
         <img ref={sunImg} className={`absolute z-[2] w-12 h-12`} src={images._01d} alt='wind'/>
       </div>
       <div className="flex flex-col items-center">
-        <img className="w-10 h-10"src={images.sunset} alt="wind" />
+        <img className="w-10 h-10"src={images.sunset} alt="sunset" />
         <p>{SunSetter(sys.sunset*1000)}</p>
       </div>
     </div>
