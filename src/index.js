@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import store from './state/store.js';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+//import cached from './cache-control.js';
 ReactDOM.render(
   <React.StrictMode>
   <Provider store={store} >
@@ -17,4 +19,9 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+serviceWorkerRegistration.register();
 reportWebVitals();
+
+/*setTimeout(()=>{
+  cached();
+},5000)*/

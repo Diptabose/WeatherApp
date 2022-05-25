@@ -1,7 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&display=swap');
+@font-face{
+  font-family:'OnePlus-Slate-Light';
+  src:url('./SlateForOnePlus-Light.ttf');
+}
+
+
+*:focus{
+  outline:none;
+}
 *{
   -webkit-tap-highlight-color:transparent;
   scrollbar-width:none;
@@ -37,6 +45,4 @@ code {
   scrollbar-width: none;  
 }
 
-.temperature{
-  font-family:'JetBrains Mono', monospace;
-}
+

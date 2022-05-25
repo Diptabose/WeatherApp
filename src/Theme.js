@@ -9,6 +9,7 @@ export const lightTheme={
   invert:'invert',
   detailsColor:'bg-slate-400',
   sevendayCardColor:'bg-gray-400',
+  menuColor:'bg-white',
 }
 
 export const darkTheme={
@@ -22,6 +23,7 @@ export const darkTheme={
   invert:'invert-0',
   detailsColor:'bg-slate-900',
   sevendayCardColor:'bg-slate-700',
+  menuColor:'bg-gray-700',
 }
 
 
