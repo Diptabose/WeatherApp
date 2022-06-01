@@ -5,7 +5,9 @@
   font-family:'OnePlus-Slate-Light';
   src:url('./SlateForOnePlus-Light.ttf');
 }
-
+:root{
+  --rotor:rotate(135deg);
+}
 
 *:focus{
   outline:none;
@@ -16,10 +18,12 @@
 }
 html{
   height: -webkit-fill-available;
+  user-select: none;
 }
-html::-webkit-scrollbar{
-  display: none;
+::-webkit-scrollbar{
+   width:0;
 }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -46,3 +50,10 @@ code {
 }
 
 
+.progress:after{
+  transform : var(--rotor);
+}
+
+#sunImg{
+  transform-origin:50% 100%;
+}

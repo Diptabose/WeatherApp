@@ -10,6 +10,7 @@ export const lightTheme={
   detailsColor:'bg-slate-400',
   sevendayCardColor:'bg-gray-400',
   menuColor:'bg-white',
+  headerIconColor:'black',
 }
 
 export const darkTheme={
@@ -24,6 +25,7 @@ export const darkTheme={
   detailsColor:'bg-slate-900',
   sevendayCardColor:'bg-slate-700',
   menuColor:'bg-gray-700',
+  headerIconColor:'white',
 }
 
 
