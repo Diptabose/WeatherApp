@@ -20,7 +20,9 @@ borderColor="border-rose-700";
            {props.data.alertMsg}
     </div>
     <div className="self-center">
+      <div className='bg-gray-300 p-8 rounded-full'>
       <img className="w-40 h-40" src={props.data.isGPS===0?NoSignal:NoService} alt="NoService/NoSignal" />
+       </div>
     </div>
    </div>
 </div>

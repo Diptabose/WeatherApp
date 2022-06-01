@@ -1,33 +1,43 @@
-import Location  from '../WeatherBG/location.png';
-import Search from '../WeatherBG/search.jpg';
-import Building from '../WeatherBG/Building.png';
-import Close from '../WeatherBG/close.png';
 import weatherbg from '../WeatherBG/';
-import {useState,useEffect,useRef,useCallback} from 'react';
+import {useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {lightTheme , darkTheme} from '../Theme.js';
-import Switch from './Switch.js';
+import {lightTheme,darkTheme} from '../Theme.js';
 import Spinner from './Spinner.js';
-import {sendNotif ,unSubscribeNotifications} from '../Notifications.js'
+import {sendNotif ,unSubscribeNotifications} from '../Notifications.js';
+
+//Material UI icons are imported here (Test)
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import Switch from '@mui/material/Switch';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
+import DomainAddRoundedIcon from '@mui/icons-material/DomainAddRounded';
+import MenuIcon from '@mui/icons-material/Menu';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
+
+
 
 function WeatherHeader(props){
- 
- const {Toaster} = props;
-  const searchField= useRef();
+  
+  const {Toaster} = props;
   const isDarkMode=useSelector((state)=>state.darkmode);
   const theme=(isDarkMode)?(darkTheme):(lightTheme);
   const [input , setInput]=useState("");
-  const [darkmodeMargin, setdarkMargin]=useState(false);
-  const [notifMargin, setnotifMargin]=useState(false);
- const [menustate,setMenu]=useState({menu:'max-w-0 overflow-hidden opacity-0', background:'hidden'});
- 
+  const [notifCheck , setNotifCheck]= useState(false);
+  const [darkmodeCheck ,setDarkModeCheck]= useState(false);
+  const [menuState, setMenuState] = useState(false);
   const [loading , setLoading]=useState(true);
   const [searchResults,setSearchResults]=useState([]);
-  const [searchCross,setSearchCross]=useState(Search);
+  const [isSearch , setIsSearch]= useState(true);
   const [display,setDisplay]=useState('hidden');
-  
-  
+  const [didUserSearch ,setUserSearch] = useState(false);
   
   function handleInput(e){
     let text= e.target.value;
@@ -36,89 +46,39 @@ function WeatherHeader(props){
   
   function handleEnterClick(e){
     if(e.keyCode===13){
-         searchLocationWeather('search');
+      setUserSearch(true);
+         initSearch();
     }
   }
+  
   useEffect(()=>{
-   
     if(isDarkMode){
-      setdarkMargin(true);
+      setDarkModeCheck(true);
     }
     else{
-      setdarkMargin(false);
+     setDarkModeCheck(false);
     }
   },[isDarkMode])
-  
  
-  
   useEffect(()=>{
     const notification= window.localStorage.getItem('notif');
     if((notification===null)||notification==='denied'){
-      setnotifMargin(false);
+    setNotifCheck(false);
     }
     else{
-      setnotifMargin(true);
+     setNotifCheck(true);
     }
-    
   },[])
-  
-  
-  
   
   function handleDarkTheme(){
     props.toggleDarkMode();
   }
 
-
-  
-const searchLocationWeather=useCallback((command)=>{
-  if(input.length===0)
-    {
-      return;
+  useEffect(()=>{
+   if(input.length===0){
+      initCloseBox();
     }
-    switch(command){
-      case 'search':
-        search();
-        break;
-      case 'close':
-        closeBox();
-        break;
-      case 'closeBox':
-        closeBox();
-        break;
-      default:
-         console.warn('No function to perform default operation');
-    }
-   async function search(){
-      setSearchCross(Close);
-        setDisplay('block');
-        setLoading(true);
-        try{
-          let geo = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=3&appid=66d9420ba608bc0e68e2a6dffe8361ab`);
-          let geoParse = await geo.json();
-          setSearchResults(geoParse);
-          setLoading(false);
-        }
-       catch(error){
-         Toaster(true,'Search Pending');
-       }
-    }
-    
-    function closeBox(){
-      if(input.length===0||true){
-      setInput('');
-      setDisplay('hidden');
-      setSearchCross(Search);
-      setSearchResults([]);
-      }
-    }
-},[input,Toaster])
-  
-   useEffect(()=>{
-    if(input.length===0){
-        searchLocationWeather('close');
-    }
-  },[searchCross,searchLocationWeather,input]); 
+  },[input]); 
     
 
 function PlacesFromSearch(props){
@@ -130,28 +90,58 @@ function PlacesFromSearch(props){
    }
    
   const placelist=(
-    <Link to='/' key={lat} className={`list-none truncate py-2 px-3 ${(!props.isLast)?'border-b-[1px]':''} border-gray-400 hover:bg-gray-400 block`} onClick={()=>{
+  <ListItemButton style={{display:'block'}}>
+    <Link to='/' key={lat} className={`list-none truncate py-1  px-1 ${(!props.isLast)?'border-b-[1px]':''} border-gray-400 hover:bg-gray-400 block`} onClick={()=>{
       setInput(name+" ,"+state+" ,"+country);
       setDisplay('hidden');
       sendLocation(pos);}} >{name+" ,"+state+" ,"+country}
     </Link>
+  </ListItemButton>
+ 
     );
   return placelist;
 }
 
-function loadLocalLocation(){
-  searchLocationWeather('close');
-  props.currentLocation();
+async function initSearch(){
+  
+  const controller = new AbortController();
+  const signal = controller.signal
+  if(input.length===0||didUserSearch){
+    return ;
+  }
+  setIsSearch(false);
+  setDisplay('block');
+  setLoading(true);
+  setUserSearch(true);
+  try{
+    let geo = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=3&appid=66d9420ba608bc0e68e2a6dffe8361ab`,{signal:signal});
+     let geoParse = await geo.json();
+     setSearchResults(geoParse);
+     setLoading(false);
+     }
+    catch(error){
+      Toaster(true,'Search Pending');
+    }
+    return ()=>{controller.abort()}
 }
 
-function toggleMenu(){
-  
-  if(menustate.menu==='max-w-0 overflow-hidden opacity-0'){
-    setMenu({menu:'max-w-[66.66%] opacity-100 sm:max-w-[40%] md:max-w-[40%] lg:mx-w-[33.33%]',background:'block'});
-  }
-  else{
-    setMenu({menu:'max-w-0 overflow-hidden opacity-0',background:'hidden'});
-  }
+function textclose(){
+  setInput('');
+  setIsSearch(true);
+  setSearchResults([]);
+  setUserSearch(true);
+}
+
+function  initCloseBox(){
+  setSearchResults([]);
+  setIsSearch(true);
+  setDisplay('hidden');
+  setUserSearch(false);
+}
+
+function loadLocalLocation(){
+ initCloseBox();
+  props.currentLocation();
 }
 
 async function toggleNotif(){
@@ -159,11 +149,11 @@ async function toggleNotif(){
   const location= props.location();
   if(((window.localStorage.getItem('notif')==='denied')||(Notification.permission!=='granted'))||((window.localStorage.getItem('notif')===null)||(Notification.permission!=='granted')))
   {
-    setnotifMargin(true);
+    setNotifCheck(true);
     window.localStorage.setItem('notif','granted');
    res =await sendNotif(location);
    if(!res){
-     setnotifMargin(false);
+     setNotifCheck(false);
      window.localStorage.setItem('notif','denied');
      Toaster(true,'Notification denied');
    }
@@ -172,11 +162,11 @@ async function toggleNotif(){
    }
   }
   else{
-    setnotifMargin(false);
+    setNotifCheck(false);
     window.localStorage.setItem('notif','denied');
     res = await unSubscribeNotifications();
     if(res){
-      setnotifMargin(true);
+      setNotifCheck(true);
       window.localStorage.setItem('notif','granted');
       Toaster(true,'Unable to unsubscribe');
     }
@@ -186,44 +176,41 @@ async function toggleNotif(){
   }
 }
 
-async function handleSwitchClick(command){
-  switch(command){
-    case 'darkmode':
-      handleDarkTheme();
-      break;
-    case 'notifications':
-      toggleNotif();
-      break;
-    default:
-       console.warn(`No action:${command} found`);
-  }
-}
-
-
-
-
 
 const weatherheader=(
 <div className={`flex flex-col ${theme.bgcolor} ${theme.textcolor} transition-[background-color] duration-700 z-[20]`}>
-  <div id="location and search" className="flex-auto py-3 flex items-center">
-    <Link className={`items-center justify-center relative w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:${theme.iconHoverColor} before:hover:opacity-30 self-center`} onClick={loadLocalLocation} to='/' >
-       <img className={`w-6 h-6 ${theme.invert}`} src={Location} alt="location"  />
-    </Link>
+  <div id="location and search" className="flex-auto  flex items-center">
+  
+ <IconButton onClick={loadLocalLocation}>
+    <Link to='/' >
+     <LocationOnIcon style={{color:theme.headerIconColor}}/>
+    </Link> 
+ </IconButton>
     <div className={`flex flex-auto bg-transparent border-b-2 ${theme.bordercolor} relative`}>
       <div className='flex flex-auto items-center justify-between z-[5]'>
-        <input ref={searchField} className={` bg-transparent flex-auto outline-none placeholder:text-white-500 `}  placeholder="Search for city, state or country" value={input}  disabled={props.isLoading} type="text" autocomplete='off' onChange={handleInput} onKeyUp={handleEnterClick} />
-        <button onClick={
-          ()=>{
-            searchLocationWeather((searchCross===Search)?'search':'close');
-          }
-        }
-       className={`${(searchCross===Close)?'w-3 h-3':'w-6 h-6'} z-[6]`}><img className={`${theme.invert} w-full h-full`} src={searchCross} alt='search' /></button>
-      </div>
-   <div className={`${display}`}>
-      <div className='fixed left-0 right-0 top-0 bottom-0 ' onClick={()=>{searchLocationWeather('close')}}></div> 
-      <div className={`${display} w-full mt-2  py-1 rounded-md bg-white top-full  absolute text-black -translate-x-full `} >
+        <input className={` bg-transparent flex-auto outline-none placeholder:text-white-500 `}  placeholder="Search for city, state or country" value={input}  disabled={props.isLoading} type="text" autocomplete='off' onChange={handleInput} onKeyUp={handleEnterClick} />
+       {
+        (isSearch)?(
+        <IconButton onClick={()=>{
+          setUserSearch(true);
+          initSearch();;
+        }}>
+           <SearchIcon style={{color:theme.headerIconColor}}/>
+        </IconButton>
+        )
+         : (<IconButton onClick={()=>{
+           textclose();
+         }}>
+          <CloseIcon style={{color:theme.headerIconColor}} />
+         </IconButton >
+         )
+       }
+   </div>
+   <div className={`${display} `}>
+      <div className='fixed left-0 right-0 top-0 bottom-0' onClick={()=>{console.log('im the red bkx click to close the box'); initCloseBox()}}></div> 
+      <div className={`${display}  w-full mt-2  py-1 rounded-md  top-full  absolute text-black bg-white -translate-x-full `} >
         {
-         (loading)?(<Spinner center={false} />):
+         (loading)?(<div className='inline-block relative top-1/2 left-1/2 -translate-x-1/2'><Spinner center={false}  /> </div>):
          (
           (searchResults.length!==0)?(
             searchResults.map((element,i)=>{
@@ -236,47 +223,47 @@ const weatherheader=(
       </div>
       </div>
     </div>
-      <Link className={`flex items-center justify-center relative w-8 h-8  rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:${theme.iconHoverColor} before:hover:opacity-30`} to='/savedlocations' >
-          <img className={` w-6 h-6`}src={Building} alt="" />
-      </Link>
+    <IconButton >
+      <Link to='/savedlocations' >
+        <DomainAddRoundedIcon style={{color:theme.headerIconColor}}/>
+      </Link >
+    </IconButton>
+   <IconButton onClick={()=>{setMenuState(true)}} >
+       <MenuIcon style={{color:theme.headerIconColor}} />
+    </IconButton>
     
-     <button className={`flex items-center justify-center relative  w-8 h-8 rounded-full before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-transparent before:-z-[1] before:rounded-full before:bg-transparent before:hover:${theme.iconHoverColor} before:hover:opacity-30 `} onClick={toggleMenu}>
-       <img className={`w-8 h-8 ${theme.invert}`} src={weatherbg.hamburger} alt="location"  />
-    </button>
-    
-   <div className={`${menustate.menu} absolute right-0 top-0 z-[5]  transition-all duration-[500ms]`}>
-  
-    <div className={` ${menustate.background} fixed right-0  bottom-0 left-0 top-0 -z-[1]`} onClick={toggleMenu}></div>
-    
-    <div className={`flex flex-col  z-[3] h-screen ${theme.menuColor} ${theme.textcolor}`}>
-       <div className='bg-cover bg-blend-darken h-1/3 w-full relative' >
-         <img className='h-full w-full -z-[1] opacity-90' src={(new Date().getHours() < 18)?(weatherbg.sunrise):(weatherbg.night)} alt='frame'/>
-         <p className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-5xl font-bold'>Settings</p>
+    <SwipeableDrawer 
+        anchor={'right'}
+        disableBackdropTransition={true}
+        open={menuState} 
+        onClose={()=>{setMenuState(false)}}
+        onOpen={()=>{setMenuState(true)}}
+        >
+      <div className={`${theme.menuColor} ${theme.textcolor} h-screen `}>
+         <div className='background object-contain relative '>
+            <img className=' w-60 h-60 -z-[1] sm:w-60 sm:h-60 md:w-80 md:h-80 lg:w-80 lg:h-80' src={(new Date().getHours()>18)?(weatherbg.night2):(weatherbg.sunrise)} alt='bg-weather' />
+            <div className='absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2  text-5xl text-white'>
+               Settings
+            </div>
+         </div>
+       <div>
+           <ListItemButton>
+              <DarkModeIcon className='mr-2' />
+              <ListItemText primary='Darkmode'/>
+             <Switch onChange={handleDarkTheme} checked={darkmodeCheck} />
+           </ListItemButton> 
+           <Divider />
+          <ListItemButton >
+             <NotificationsActiveIcon className='mr-2'/> 
+             <ListItemText primary='Notifications'/>
+             <Switch onChange={toggleNotif} checked={notifCheck} disabled={props.isLoading}/>
+          </ListItemButton>
        </div>
-     <div className={`px-2 py-3 flex flex-col`}>
-      <div className='py-2 flex justify-between'>
-        <div className='flex items-center mr-5'>
-           <img className='w-5 h-5 mx-1' src={weatherbg.darkmode} alt='dark' />
-           <span className='truncate'>Dark Theme</span>
-        </div>
-        <div onClick={()=>{handleSwitchClick('darkmode')}}>
-        <Switch showmargin={darkmodeMargin} />
-        </div>
-      </div>
-      <div className='py-2 justify-between flex'>
-        <div className='flex items-center mr-5 '>
-           <img className='w-5 h-5 mx-1' src={weatherbg.notification} alt='notification'/>
-           <span className='truncate'>Notifications</span>
-        </div>
-        <div onClick={()=>{handleSwitchClick('notifications')}}>
-           <Switch showmargin={notifMargin}/>
-        </div>
-      </div>
-    </div>
-  </div>
- </div> 
-</div>
-  <div className=" flex items-center justify-between px-2 py-1 font-bold sm:justify-center md:mx-3 md:justify-center lg:justify-around" >
+    </div> 
+     
+    </SwipeableDrawer> 
+</div> 
+  <div className=" flex items-center justify-between px-2 py-1 font-bold sm:justify-center md:mx-3 md:justify-around lg:justify-around" >
     <Link className=" rounded-l-full rounded-r-full px-2 border-b-2 border-sky-600 " 
       to='/' disabled={props.isLoading}>Today</Link>
     <Link className=" rounded-l-full rounded-r-full px-2  border-sky-600 border-b-2"

@@ -55,7 +55,7 @@ function Tommorow(props){
       <WeatherReport place={props.place} today={false} weatherdata={weatherData} />
       <WeatherHourly hourly={hourlyData} />
       <WeatherPlot hourly={hourlyData} />
-      <WeatherDetails  weatherdata={weatherData}     uvi={uvi}   />
+      <WeatherDetails  weatherdata={weatherData}     uvi={uvi} today={false}   />
     </div>
     );
 return tommorow;

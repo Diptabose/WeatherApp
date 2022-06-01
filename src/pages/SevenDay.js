@@ -43,9 +43,9 @@ function SevenDayTemplate(props){
   <div className="px-2">
     <div className={`flex flex-col ${theme.sevendayCardColor} ${theme.textcolor} py-2 px-2 mt-2 rounded-lg  transition-[height] duration-75 transition-[background-color] duration-700`} onClick={handleHeight}>
       <div id="maincard" className="flex justify-between items-center sm:justify-around md:justify-around lg:justify-around">
-        <div id="day&weather">
-          <p className="m-0">{todayOrNot(day)}</p>
-          <p className="m-0">{description.charAt(0).toUpperCase().concat(description.slice(1))}</p>
+        <div id="day&weather" className='w-40' >
+          <p className="m-0 truncate">{todayOrNot(day)}</p>
+          <p className="m-0 truncate">{description.charAt(0).toUpperCase().concat(description.slice(1))}</p>
         </div>
         <div className="flex items-center">
           <img className="w-14 h-14 "src={ImageMapper('_'.concat(icon),images)} alt="morning" />
@@ -56,17 +56,16 @@ function SevenDayTemplate(props){
         </div>
       </div>
     </div>
-    <div id="innerDetails" className={`flex flex-col transition-[max-height] duration-[350ms] ${height} overflow-hidden  px-2 mt-1`}>
+    <div id="innerDetails" className={`flex flex-col transition-[max-height] duration-[350ms] ${height} overflow-hidden  px-2 mt-1  `}>
       <div className={`${theme.textcolor} flex py-3`} id="details">
-           
         <div className={`flex flex-1 border-r-2 ${theme.bordercolor}`}>
-          <div className='flex flex-col flex-1'>
+          <div className='flex flex-col flex-1 md:items-center lg:items-center'>
             <p className='truncate'>Sunrise</p>
             <p className='py-1 truncate'>Sunset</p>
             <p className='truncate'>Humidity</p>
-            <p className='py-1 truncate' >Pressure</p>
+            <p className='py-1 truncate'>Pressure</p>
           </div>
-          <div className="flex flex-col flex-1 items-start">
+          <div className="flex flex-col flex-1 items-start md:items-center lg:items-center">
             <p className='truncate'>{SunSetter(sunrise)}</p>
             <p className='py-1 truncate'>{SunSetter(sunset)}</p>
             <p className='truncate'>{humidity}%</p>
@@ -74,14 +73,14 @@ function SevenDayTemplate(props){
           </div>
         </div>
         <div className='flex flex-1 pl-3'>
-          <div className='flex flex-col flex-1'>
+          <div className='flex md:items-center lg:items-center flex-col flex-1'>
             <p className='truncate'>WindSpeed</p>
             <p className='py-1 truncate'>WindDegree</p>
             <p className='truncate'>Clouds</p>
             <p className='py-1 truncate'>UVI</p>
           </div>
-          <div className="pl-3 flex flex-col flex-1 items-start">
-              <p className='truncate'>{Math.floor(windspeed)} m/s</p>
+          <div className="pl-3 flex flex-col flex-1 items-start md:items-center lg:items-center">
+              <p className='truncate' >{Math.floor(windspeed)} m/s</p>
               <p className='py-1 truncate'>{winddegree}°</p>
               <p className='truncate'>{clouds}%</p>
               <p className='py-1 truncate'>{uvi}</p>

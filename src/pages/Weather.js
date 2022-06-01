@@ -1,4 +1,4 @@
-import {useState, useEffect,useCallback} from 'react';
+import {useState,useRef,useEffect,useCallback} from 'react';
 import WeatherHeader from './WeatherHeader.js';
 import Spinner from './Spinner.js';
 import Alert from './Alert.js';
@@ -8,8 +8,6 @@ import {useSelector} from 'react-redux';
 import {lightTheme, darkTheme } from '../Theme.js';
 import Toast from './Toast.js';
 import {lazy,Suspense} from 'react';
-
-
 //Using lazy loading to reduce bundle size
 const Today = lazy(()=>import('./Today.js'));
 const Tommorow = lazy(()=>import('./Tommorow.js'));
@@ -20,7 +18,7 @@ function Weather(props){
   
   const isDarkMode = useSelector((state)=>state.darkmode);
   const theme=(isDarkMode)?(darkTheme):(lightTheme);
-  
+  const headerRef = useRef();
   //Defining 3 GPS states
   // isGPS===-1 when !navigator.geoloaction
   //isGPS===1 when position is returned
@@ -152,9 +150,9 @@ const Location=useCallback(()=>{
 
 
 useEffect(()=>{
- //setTimeout(()=>{
+ // setTimeout(()=>{
    Location();
- // },5000);
+  //},5000);
 },[Location]);
 
 
@@ -188,7 +186,7 @@ const weather=(
  {(showToast.showState)?(<Toast message={showToast.msg} restoreToaster={Toaster} />):(<div></div>)}
  
   <Router>
-  <div className='sticky top-0 z-[3]'>
+  <div ref={headerRef} className='sticky top-0 z-[3]'>
     <WeatherHeader  
         isLoading={loading}
         toggleDarkMode={props.toggleDarkMode}
@@ -198,6 +196,8 @@ const weather=(
         Toaster={Toaster}
       />
     </div> 
+    
+    
     <div className='mx-4'>
     {
       (loading)?(<Spinner center={true} />):(
@@ -209,43 +209,38 @@ const weather=(
           (
       <Routes>
         <Route exact index path='/' element={
-          
         <Suspense fallback={<Spinner center={true}/>}>
           <Today weatherData={wdata} />
         </Suspense>
         }
          />
-        
-        
     <Route exact path='/tommorow' element={
       <Suspense fallback={<Spinner center={true}/>}>
         <Tommorow place={wdata.weatherData.name} tommorowData={wdata.oneCallData} /> 
        </Suspense> 
     }
           />
-          
-        <Route exact index path='/sevenday' element={
+    <Route exact index path='/sevenday' element={
        <Suspense fallback={<Spinner center={true} />}>
           <SevenDay sevendata={wdata.oneCallData.daily} />
         </Suspense>
         }
         />
-        <Route exact path='/savedlocations' element={
+    <Route exact path='/savedlocations' element={
           
-       <Suspense fallback={<Spinner center={true} />}>
+     <Suspense fallback={<Spinner center={true} />}>
           <UserLocations lat={wdata.weatherData.coord.lat} lon={wdata.weatherData.coord.lon} place={wdata.weatherData.name} loadSavedLocation={changingToUserCoords}
               toaster={Toaster} />
         </Suspense >
         }
               />
-         <Route exact path='*' element={<NoPage appname='WeatherApp'/>} />
-      </Routes>
-            )
-          )
-        }
-    </div>
-  </Router>
-
+    <Route exact path='*' element={<NoPage appname='WeatherApp'/>} />
+ </Routes>
+         )
+       )
+     }
+  </div>
+</Router>
 </div>
   );
 return weather;

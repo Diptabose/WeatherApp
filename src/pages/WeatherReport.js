@@ -43,7 +43,7 @@ function WeatherReport(props){
         <img className="z-[1] text-center w-32 h-32" src={ImageMapper('_'.concat(weather[0].icon))} alt=""/>
       </div>
       <div className={`flex flex-col items-center`}>
-        <p>{weather[0].description.charAt(0).toUpperCase().concat(weather[0].description.slice(1))}</p>
+        <p className='text-center'>{weather[0].description.charAt(0).toUpperCase().concat(weather[0].description.slice(1))}</p>
         <h1 className="temperature my-2 ml-6 text-8xl font-bold">{Math.ceil(main.temp)}<sup className="text-sky-500">°</sup></h1>
        </div>
     </div>

@@ -12,7 +12,7 @@ function Today(props){
     <WeatherReport today={true} weatherdata={weatherData} place={weatherData.name} />
     <WeatherHourly hourly={hourlyData} />
     <WeatherPlot hourly={hourlyData} />
-    <WeatherDetails weatherdata={weatherData} uvi={oneCallData.current.uvi}/>
+    <WeatherDetails weatherdata={weatherData} uvi={oneCallData.current.uvi} today={true} />
     <AirQualityIndex aqi={Aqi.list[0]} />
    
   </div>
