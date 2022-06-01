@@ -72,7 +72,12 @@ self.addEventListener('message', (event) => {
 // Any other custom service worker logic can go here.
 
 /*Service worker handling the push events. Recieves data from server as string and parses it to json to send data*/ 
-
+self.addEventListener('install',(e)=>{
+  console.log('Service worker installed');
+});
+self.addEventListener('activate',(e)=>{
+  console.log('Service worker activated');
+});
 self.addEventListener("push", e => {
     const data = e.data.json();
     let body,icon,title;
