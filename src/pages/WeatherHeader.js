@@ -181,8 +181,8 @@ const weatherheader=(
 <div className={`flex flex-col ${theme.bgcolor} ${theme.textcolor} transition-[background-color] duration-700 z-[20]`}>
   <div id="location and search" className="flex-auto  flex items-center">
   
- <IconButton onClick={loadLocalLocation}>
-    <Link to='/' >
+ <IconButton aria-label='currentlocation' onClick={loadLocalLocation}>
+    <Link aria-label='gotohome' to='/' >
      <LocationOnIcon style={{color:theme.headerIconColor}}/>
     </Link> 
  </IconButton>
@@ -191,14 +191,14 @@ const weatherheader=(
         <input className={` bg-transparent flex-auto outline-none placeholder:text-white-500 `}  placeholder="Search for city, state or country" value={input}  disabled={props.isLoading} type="text" autocomplete='off' onChange={handleInput} onKeyUp={handleEnterClick} />
        {
         (isSearch)?(
-        <IconButton onClick={()=>{
+        <IconButton aria-label='search' onClick={()=>{
           setUserSearch(true);
           initSearch();;
         }}>
            <SearchIcon style={{color:theme.headerIconColor}}/>
         </IconButton>
         )
-         : (<IconButton onClick={()=>{
+         : (<IconButton aria-label='cross' onClick={()=>{
            textclose();
          }}>
           <CloseIcon style={{color:theme.headerIconColor}} />
@@ -207,7 +207,7 @@ const weatherheader=(
        }
    </div>
    <div className={`${display} `}>
-      <div className='fixed left-0 right-0 top-0 bottom-0' onClick={()=>{console.log('im the red bkx click to close the box'); initCloseBox()}}></div> 
+      <div className='fixed left-0 right-0 top-0 bottom-0' onClick={()=>{initCloseBox()}}></div> 
       <div className={`${display}  w-full mt-2  py-1 rounded-md  top-full  absolute text-black bg-white -translate-x-full `} >
         {
          (loading)?(<div className='inline-block relative top-1/2 left-1/2 -translate-x-1/2'><Spinner center={false}  /> </div>):
@@ -224,11 +224,11 @@ const weatherheader=(
       </div>
     </div>
     <IconButton >
-      <Link to='/savedlocations' >
+      <Link aria-label='gotosavedlocations' to='/savedlocations' >
         <DomainAddRoundedIcon style={{color:theme.headerIconColor}}/>
       </Link >
     </IconButton>
-   <IconButton onClick={()=>{setMenuState(true)}} >
+   <IconButton aria-label='openmenu' onClick={()=>{setMenuState(true)}} >
        <MenuIcon style={{color:theme.headerIconColor}} />
     </IconButton>
     
@@ -247,16 +247,16 @@ const weatherheader=(
             </div>
          </div>
        <div>
-           <ListItemButton>
+           <ListItemButton aria-label='darkmode' >
               <DarkModeIcon className='mr-2' />
               <ListItemText primary='Darkmode'/>
-             <Switch onChange={handleDarkTheme} checked={darkmodeCheck} />
+             <Switch aria-label='toggledark' onChange={handleDarkTheme} checked={darkmodeCheck} />
            </ListItemButton> 
            <Divider />
-          <ListItemButton >
+          <ListItemButton aria-label='notifications' >
              <NotificationsActiveIcon className='mr-2'/> 
              <ListItemText primary='Notifications'/>
-             <Switch onChange={toggleNotif} checked={notifCheck} disabled={props.isLoading}/>
+             <Switch aria-label='togglenotif' onChange={toggleNotif} checked={notifCheck} disabled={props.isLoading}/>
           </ListItemButton>
        </div>
     </div> 
@@ -264,11 +264,11 @@ const weatherheader=(
     </SwipeableDrawer> 
 </div> 
   <div className=" flex items-center justify-between px-2 py-1 font-bold sm:justify-center md:mx-3 md:justify-around lg:justify-around" >
-    <Link className=" rounded-l-full rounded-r-full px-2 border-b-2 border-sky-600 " 
+    <Link aria-label='today' className=" rounded-l-full rounded-r-full px-2 border-b-2 border-sky-600 " 
       to='/' disabled={props.isLoading}>Today</Link>
-    <Link className=" rounded-l-full rounded-r-full px-2  border-sky-600 border-b-2"
+    <Link aria-label='tomorrow' className=" rounded-l-full rounded-r-full px-2  border-sky-600 border-b-2"
     to='/tommorow'  disabled={props.isLoading}>Tomorrow</Link>
-    <Link className="rounded-l-full rounded-r-full px-2 border-sky-600 border-b-2" to='/sevenday'  disabled={props.isLoading} >8 Days</Link>
+    <Link aria-label='8day' className="rounded-l-full rounded-r-full px-2 border-sky-600 border-b-2" to='/sevenday'  disabled={props.isLoading} >8 Days</Link>
   </div>
 </div>
   );

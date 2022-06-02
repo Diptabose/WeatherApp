@@ -32,7 +32,7 @@ const lt=(
       backgroundPosition:'center',
     }}
     className={`p-4 text-white mb-2 rounded-md flex shadow-md bg-cyan-800 object-cover relative cursor-pointer`} >
-  <Link to='/' className="flex-[9]" onClick={()=>{
+  <Link aria-label='loadsavedlocation' to='/' className="flex-[9]" onClick={()=>{
      const pos={coords:{lat:lat,long:long}};
      props.saved(pos);
   }} >
@@ -45,7 +45,7 @@ const lt=(
   <div className="flex-[1] flex flex-col items-center justify-center "
     onClick={()=>{props.cardRemove(location)}}
     >
-    <button className="flex items-center justify-center w-7 h-7 rounded-full bg-sky-700 text-white font-bold text-3xl cursor-pointer " >
+    <button aria-label='removecard' className="flex items-center justify-center w-7 h-7 rounded-full bg-sky-700 text-white font-bold text-3xl cursor-pointer " >
          &minus;
      </button>
   </div>
@@ -114,7 +114,7 @@ const ul=(
       }</div>
     
   <div className="flex flex-col items-end sticky bottom-0 pb-4" >
-      <button className={`flex items-center justify-center w-14 h-14 rounded-full text-5xl bg-sky-700 text-white shadow-md ${theme.boxshadow}`} onClick={()=>{
+      <button aria-label='addicon' className={`flex items-center justify-center w-14 h-14 rounded-full text-5xl bg-sky-700 text-white shadow-md ${theme.boxshadow}`} onClick={()=>{
       
       //toaster(false,null);
       addLocation({location:place, lat:lat,long:lon});
