@@ -181,7 +181,7 @@ const weatherheader=(
 <div className={`flex flex-col ${theme.bgcolor} ${theme.textcolor} transition-[background-color] duration-700 z-[20]`}>
   <div id="location and search" className="flex-auto  flex items-center">
   
- <IconButton aria-label='currentlocation' onClick={loadLocalLocation}>
+ <IconButton className={`w-6 h-6`} aria-label='currentlocation' onClick={loadLocalLocation}>
     <Link aria-label='gotohome' to='/' >
      <LocationOnIcon style={{color:theme.headerIconColor}}/>
     </Link> 
@@ -191,14 +191,14 @@ const weatherheader=(
         <input className={` bg-transparent flex-auto outline-none placeholder:text-white-500 `}  placeholder="Search for city, state or country" value={input}  disabled={props.isLoading} type="text" autocomplete='off' onChange={handleInput} onKeyUp={handleEnterClick} />
        {
         (isSearch)?(
-        <IconButton aria-label='search' onClick={()=>{
+        <IconButton className={`w-6 h-6`} aria-label='search' onClick={()=>{
           setUserSearch(true);
           initSearch();;
         }}>
            <SearchIcon style={{color:theme.headerIconColor}}/>
         </IconButton>
         )
-         : (<IconButton aria-label='cross' onClick={()=>{
+         : (<IconButton className={`w-6 h-6`} aria-label='cross' onClick={()=>{
            textclose();
          }}>
           <CloseIcon style={{color:theme.headerIconColor}} />
@@ -223,12 +223,12 @@ const weatherheader=(
       </div>
       </div>
     </div>
-    <IconButton >
+    <IconButton className={`w-6 h-6`}>
       <Link aria-label='gotosavedlocations' to='/savedlocations' >
         <DomainAddRoundedIcon style={{color:theme.headerIconColor}}/>
       </Link >
     </IconButton>
-   <IconButton aria-label='openmenu' onClick={()=>{setMenuState(true)}} >
+   <IconButton className={`w-6 h-6`} aria-label='openmenu' onClick={()=>{setMenuState(true)}} >
        <MenuIcon style={{color:theme.headerIconColor}} />
     </IconButton>
     
