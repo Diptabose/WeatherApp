@@ -164,7 +164,7 @@ function Weather(props) {
       setLoading(false);
     },
 
-    [cachings , setAndShowToast]
+    [cachings]
   );
 
   const Location = useCallback(async () => {
