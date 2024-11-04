@@ -1,6 +1,6 @@
 import { GPSMessages } from "./commonMessages";
 
-export const getEndpoints = (pos)=> [`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude.toFixed(2)}&lon=${pos.coords.longitude.toFixed(2)}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric` , `https://api.openweathermap.org/data/2.5/onecall?lat=${pos.coords.latitude.toFixed(2)}&lon=${pos.coords.longitude.toFixed(2)}&exclude=minutely&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric` , `https://api.openweathermap.org/data/2.5/air_pollution?lat=${pos.coords.latitude.toFixed(2)}&lon=${pos.coords.longitude.toFixed(2)}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`]
+export const getEndpoints = (pos)=> [`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude.toFixed(2)}&lon=${pos.coords.longitude.toFixed(2)}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric` , `https://api.openweathermap.org/data/3.0/onecall?lat=${pos.coords.latitude.toFixed(2)}&lon=${pos.coords.longitude.toFixed(2)}&exclude=minutely&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric` , `https://api.openweathermap.org/data/2.5/air_pollution?lat=${pos.coords.latitude.toFixed(2)}&lon=${pos.coords.longitude.toFixed(2)}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`]
 
 const builtInGPSError = {
   "1": GPSMessages.Error.GEOLOCATION_DENIED,
