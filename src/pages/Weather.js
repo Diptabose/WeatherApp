@@ -100,7 +100,7 @@ function Weather(props) {
         let areRequestsOk = combinedPromises.reduce((prev, request) => prev && request.ok, true);
         let parsedJsons = [];
         if (areRequestsOk) {
-          parsedJsons = await Promise.all(combinedPromises.map((request) => request.json()));
+          parsedJsons = await Promise.allSettled(combinedPromises.map((request) => request.json()));
 
           const [weatherJSON, oneCallJSON, aqiJSON] = parsedJsons
           setWdata({
