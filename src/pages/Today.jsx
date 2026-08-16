@@ -1,9 +1,9 @@
 import {memo} from "react";
 import WeatherReport from "./WeatherReport.js";
-import WeatherHourly from "./WeatherHourly.js";
-import WeatherDetails from "./WeatherDetails.js";
-import AirQualityIndex from "./AirQualityIndex.js";
-import WeatherPlot from "./WeatherPlot.js";
+import WeatherHourly from "./WeatherHourly.jsx";
+import WeatherDetails from "./WeatherDetails.jsx";
+import AirQualityIndex from "./AirQualityIndex.jsx";
+import WeatherPlot from "./WeatherPlot.jsx";
 
 
 function Today(props) {

@@ -2,7 +2,7 @@ import images from "../WeatherIcons";
 import { useState , memo } from "react";
 import { useSelector } from "react-redux";
 import { lightTheme, darkTheme } from "../Theme.js";
-import { capitalise } from "../utils/commonMethods";
+import { capitalise } from "../utils/commonMethods.js";
 
 
 function SevenDayTemplate(props) {

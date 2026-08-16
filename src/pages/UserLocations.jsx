@@ -1,7 +1,7 @@
 import React , { memo } from "react";
 import { useSelector } from "react-redux";
 import { lightTheme, darkTheme } from "../Theme.js";
-import LocationCardTemplate from "../components/LocationCardTemplate.js";
+import LocationCardTemplate from "../components/LocationCardTemplate.jsx";
 import useLocationCards from "../hooks/useLocationCards.js";
 
 function UserLocations(props) {

@@ -1,19 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import App from "./App.jsx";
+import reportWebVitals from "./reportWebVitals.js";
 import { Provider } from "react-redux";
 import store from "./state/store.js";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-//import cached from './cache-control.js';
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want to start measuring performance in your app, pass a function
@@ -21,7 +20,3 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 serviceWorkerRegistration.register();
 reportWebVitals();
-
-/*setTimeout(()=>{
-  cached();
-},5000)*/

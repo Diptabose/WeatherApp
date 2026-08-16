@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import { lightTheme, darkTheme } from "../Theme.js";
 import images from "../WeatherIcons";
-import { greeter , capitalise } from "../utils/commonMethods.js";
-
+import { greeter, capitalise } from "../utils/commonMethods.js";
 
 function WeatherReport(props) {
   const isDarkMode = useSelector((state) => state.darkmode);
@@ -36,9 +35,7 @@ function WeatherReport(props) {
           />
         </div>
         <div className={`flex flex-col items-center`}>
-          <p className="text-center">
-            {capitalise(weather[0].description)}
-          </p>
+          <p className="text-center">{capitalise(weather[0].description)}</p>
           <h1 className="temperature my-2 ml-6 text-8xl font-bold 2xm:text-7xl">
             {Math.ceil(main.temp)}
             <sup className="text-sky-500">°</sup>

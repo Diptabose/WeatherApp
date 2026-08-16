@@ -1,5 +1,5 @@
 import React from "react";
-import weatherbg from "../WeatherBG";
+import weatherbg from "../background-images";
 import { Link } from "react-router-dom";
 
 function locationTemplateBg() {

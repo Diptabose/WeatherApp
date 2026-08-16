@@ -1,8 +1,8 @@
 import { memo } from "react";
 import WeatherReport from "./WeatherReport.js";
-import WeatherHourly from "./WeatherHourly.js";
-import WeatherDetails from "./WeatherDetails.js";
-import WeatherPlot from "./WeatherPlot.js";
+import WeatherHourly from "./WeatherHourly.jsx";
+import WeatherDetails from "./WeatherDetails.jsx";
+import WeatherPlot from "./WeatherPlot.jsx";
 
 
 function Tommorow(props) {

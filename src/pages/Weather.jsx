@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect, useCallback, memo } from "react";
 import WeatherHeader from "./WeatherHeader.js";
-import Spinner from "../components/Spinner.js";
-import Alert from "./Alert.js";
-import NoPage from "./NoPage.js";
+import Spinner from "../components/Spinner.jsx";
+import Alert from "./Alert.jsx";
+import NoPage from "./NoPage.jsx";
 import { BrowserRouter as Router, Routes, Route , Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { lightTheme, darkTheme } from "../Theme.js";
 import { lazy, Suspense } from "react";
-import { useToast } from "../components/ToastProvider.js";
+import { useToast } from "../components/ToastProvider.jsx";
 import { ToastMessages, CacheMessages, GPSMessages } from "../utils/commonMessages.js";
 
 
@@ -16,10 +16,10 @@ import { ToastMessages, CacheMessages, GPSMessages } from "../utils/commonMessag
 import { getEndpoints, fetchUserLocation } from "../utils/commonMethods.js";
 
 // Using lazy loading to reduce bundle size
-const Today = lazy(() => import("./Today.js"));
-const Tommorow = lazy(() => import("./Tommorow.js"));
-const SevenDay = lazy(() => import("./SevenDay.js"));
-const UserLocations = lazy(() => import("./UserLocations.js"));
+const Today = lazy(() => import("./Today.jsx"));
+const Tommorow = lazy(() => import("./Tommorow.jsx"));
+const SevenDay = lazy(() => import("./SevenDay.jsx"));
+const UserLocations = lazy(() => import("./UserLocations.jsx"));
 
 
 

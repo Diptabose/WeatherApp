@@ -1,11 +1,11 @@
-import Weather from "./pages/Weather.js";
+import Weather from "./pages/Weather.jsx";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./state/index.js";
 
 
-import ToastProvider from "./components/ToastProvider.js";
+import ToastProvider from "./components/ToastProvider.jsx";
 
 function App() {
 
