@@ -5,8 +5,8 @@ import WeatherPlot from "./WeatherPlot";
 import { adaptForecast } from "@/lib/weather";
 
 interface WeatherOneCallProps {
-    lat: number,
-    lon: number
+    lat: string,
+    lon: string
 }
 
 export async function WeatherOneCall({ lat, lon }: WeatherOneCallProps) {

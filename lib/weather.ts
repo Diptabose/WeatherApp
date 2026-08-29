@@ -1,4 +1,4 @@
-import { ForecastData } from "@/types/forecast.types";
+import { AdaptForecast, ForecastData } from "@/types/forecast.types";
 import { LocationSearch } from "@/types/search.types";
 
 export function getLabel(item: LocationSearch) {
@@ -61,7 +61,7 @@ const tempAt = (
  *  - per-day sunrise/sunset are not provided; only the city's current pair is,
  *    so later days reuse it. Drift is a couple of minutes per day.
  */
-export const adaptForecast = (forecast: ForecastData) => {
+export const adaptForecast = (forecast: ForecastData): AdaptForecast => {
   const tzOffset = forecast?.city?.timezone ?? 0;
   const entries = forecast?.list ?? [];
 
@@ -112,7 +112,68 @@ export const adaptForecast = (forecast: ForecastData) => {
       weather: e.weather,
     })),
     daily,
+    name: forecast?.city?.name,
   };
+};
+
+export const adaptTomorrow = (forecast: AdaptForecast) => {
+  const {
+    sunrise,
+    sunset,
+    temp,
+    pressure,
+    humidity,
+    wind_speed,
+    wind_deg,
+    weather,
+    clouds,
+    dt,
+    hours,
+  } = forecast.daily[1];
+
+  function tempSet() {
+    let date = new Date();
+    let h = date.getHours();
+    if (h >= 0 && h <= 11) {
+      return temp.morn;
+    } else if (h > 12 && h <= 15) {
+      return temp.day;
+    } else if (h > 15 && h <= 18) {
+      return temp.eve;
+    } else {
+      return temp.night;
+    }
+  }
+  const temperature = tempSet();
+  const weatherData = {
+    name: forecast.name,
+    dt: dt,
+    main: {
+      temp: temperature,
+      temp_min: temp.min,
+      temp_max: temp.max,
+      pressure: pressure,
+      humidity: humidity,
+    },
+    sys: {
+      sunset: sunset,
+      sunrise: sunrise,
+    },
+    wind: {
+      speed: wind_speed,
+      deg: wind_deg,
+    },
+    clouds: {
+      all: clouds,
+    },
+    weather: weather,
+  };
+
+  // The forecast is 3-hourly, so a fixed offset into `hourly` no longer lands on
+  // tomorrow; use the readings the adapter grouped into tomorrow's own bucket.
+  let hourlyData = hours;
+
+  return { weatherData, hourlyData };
 };
 
 export function sunSetter(time: number) {
@@ -127,7 +188,7 @@ export function sunSetter(time: number) {
   }
 }
 
-export function sunTotal(time: number) {
+export function sumTotal(time: number) {
   if (time < 0) {
     return "00:00 hrs";
   }
@@ -142,4 +203,22 @@ export function sunTotal(time: number) {
     (Min < 10 ? "0" + Min : Min) +
     " hrs"
   );
+}
+
+export function todayOrNot(day: number) {
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const d = new Date(day * 1000);
+  if (d.getDate() === new Date().getDate()) {
+    return "Today";
+  } else {
+    return weekday[d.getDay()];
+  }
 }

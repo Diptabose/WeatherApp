@@ -52,3 +52,5 @@ export interface WeatherData {
   name: string;
   cod: number;
 }
+
+

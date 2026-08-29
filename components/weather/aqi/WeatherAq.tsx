@@ -3,8 +3,8 @@ import { AirPollutionData } from "@/types/air-pollution.types";
 import { AirQualityIndex } from "./Aqi";
 
 interface WeatherAqiProps {
-    lat: number,
-    lon: number
+    lat: string,
+    lon: string
 }
 
 

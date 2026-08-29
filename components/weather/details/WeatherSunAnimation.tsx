@@ -2,7 +2,7 @@
 import { WeatherSys } from "@/types/weather.types";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
-import { sunSetter, sunTotal } from "@/lib/weather";
+import { sunSetter, sumTotal } from "@/lib/weather";
 
 interface WeatherSunAnimationProps {
     today: boolean,
@@ -67,7 +67,7 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
     return (
         <>
             <div className="border-b-2">
-                <p className="font-bold text-xl">SunRise/SunSet</p>
+                <p className="font-bold text-xl">Sun rise/Sun set</p>
             </div>
 
             <div className="flex  flex-col items-center justify-center w-full mt-4 mb-4">
@@ -119,9 +119,9 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
                             <p>Time Left:</p>
                         </div>
                         <div className="flex flex-col mx-4 ">
-                            <p>{sunTotal(sys.sunset - sys.sunrise)}</p>
+                            <p>{sumTotal(sys.sunset - sys.sunrise)}</p>
                             <p>
-                                {sunTotal(sys.sunset - Math.floor(new Date().getTime() / 1000))}
+                                {sumTotal(sys.sunset - Math.floor(new Date().getTime() / 1000))}
                             </p>
                         </div>
                     </div>

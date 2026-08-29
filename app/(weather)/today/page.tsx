@@ -6,23 +6,26 @@ import { weatherClient } from "@/services/weather.server-client";
 import { WeatherData } from "@/types/weather.types";
 import { Suspense } from "react";
 
-const TodayPage = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) => {
+const TodayPage = async ({ searchParams }: PageProps<"/today">) => {
+  const { lat, lon } = await searchParams;
 
-  const search = await searchParams;
-  console.log("The search params ", search);
+  if (!lat || !lon) {
+    return <></>;
+  }
+
   const weatherResponse = await weatherClient.get<WeatherData>(
-    `/data/2.5/weather?lat=${search.lat}&lon=${search.lon}&units=metric`,
+    `/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric`,
   );
   const data = weatherResponse.data;
 
   return <>
     <WeatherReport today={true} weatherData={data} place={data.name} />
     <Suspense fallback={<>One call loading...</>}>
-      <WeatherOneCall lat={search.lat as unknown as number} lon={search.lon as unknown as number} />
+      <WeatherOneCall lat={lat as string} lon={lon as string} />
     </Suspense>
     <WeatherDetails weatherData={data} today={true} />
     <Suspense fallback={<>Doing some loading...</>}>
-      <WeatherAqi lat={search.lat as unknown as number} lon={search.lon as unknown as number} />
+      <WeatherAqi lat={lat as string} lon={lon as string} />
     </Suspense>
   </>;
 };

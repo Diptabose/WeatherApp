@@ -19,9 +19,9 @@ export function WeatherTabs() {
                     render={<Link href="/tomorrow">Tomorrow</Link>}
                 />
                 <TabsTrigger
-                    value="fivedays"
+                    value="weekly"
                     nativeButton={false}
-                    render={<Link href="/fivedays">5 Days</Link>}
+                    render={<Link href="/weekly">Weekly (5)</Link>}
                 />
             </TabsList>
         </Tabs>
