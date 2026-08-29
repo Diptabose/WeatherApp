@@ -4,7 +4,7 @@ import { WeatherLoading } from "@/components/weather/WeatherLoading";
 import { useLocation } from "@/hooks/useLocation";
 
 export default function Home() {
-  const { isLoading, isError, position, error } = useLocation();
+  const { isLoading, isError, error } = useLocation();
   return (
     <WeatherLoading isLoading={isLoading}>
       <WeatherError error={error as GeolocationPositionError} isError={isError}>
