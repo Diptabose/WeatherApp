@@ -2,11 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  reactCompiler: true,
+  experimental: {
+    turbopackRustReactCompiler: true,
+  },
   redirects: () => {
-    return [
-      // Auto navigate to the today
-      { source: "/", destination: "/today", permanent: true },
-    ];
+    return [{ source: "/", destination: "/today", permanent: true }];
   },
 };
 

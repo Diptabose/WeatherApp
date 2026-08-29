@@ -7,6 +7,7 @@ import {
     ComboboxItem,
     ComboboxList,
 } from "@/components/ui/combobox";
+import { useLocation } from "@/hooks/useLocation";
 import { getLabel } from "@/lib/weather";
 import { search } from "@/services/weather.service";
 import { LocationSearch } from "@/types/search.types";
@@ -16,6 +17,7 @@ import { startTransition, useState } from "react";
 
 
 export function WeatherSearch() {
+    const { setOverride } = useLocation();
     const [searchedLocation, setSearchedLocation] = useState<LocationSearch | null>(null);
     const [searchedLocations, setSearchedLocations] = useState<LocationSearch[]>([]);
 
@@ -46,6 +48,7 @@ export function WeatherSearch() {
         onValueChange={(value) => {
             if (value) {
                 setSearchedLocation(value);
+                setOverride({ lat: value.lat, lon: value.lon });
             }
         }}
     >

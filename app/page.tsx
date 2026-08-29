@@ -1,7 +1,7 @@
 "use client";
 import { WeatherError } from "@/components/weather/WeatherError";
 import { WeatherLoading } from "@/components/weather/WeatherLoading";
-import { useLocation } from "@/providers/LocationProvider";
+import { useLocation } from "@/hooks/useLocation";
 
 export default function Home() {
   const { isLoading, isError, position, error } = useLocation();

@@ -24,7 +24,7 @@ export function WeatherLoading({
         {...containerProps}
       >
         <Spinner
-          className={cn("size-4", spinnerProps?.className)}
+          className={cn("size-12", spinnerProps?.className)}
           {...spinnerProps}
         />
       </div>

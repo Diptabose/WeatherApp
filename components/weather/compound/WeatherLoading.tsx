@@ -1,5 +1,5 @@
 "use client";
-import { useLocation } from "@/providers/LocationProvider";
+import { useLocation } from "@/hooks/useLocation";
 import { ReactNode } from "react";
 import { WeatherLoading } from "../WeatherLoading";
 

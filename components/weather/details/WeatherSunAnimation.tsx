@@ -97,6 +97,7 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
                             <Image
                                 className="w-10 h-10 -translate-x-3 translate-y-1/2 6xm:w-8 6xm:h-8"
                                 src="/icons/01d.svg"
+                                preload={true}
                                 alt="Sun"
                                 width={40}
                                 height={40}
@@ -105,11 +106,12 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
                     </div>
                     <div className="flex justify-between self-stretch 6xm:w-32 5xm:w-52 5xm:self-center">
                         <div className="-translate-x-1/4 flex flex-col self-start  5xm:-translate-x-3.5 6xm:-translate-x-2.5 items-center">
-                            <Image className="w-10 h-10" alt="sunrise" src="/icons/sunrise.svg" width={40} height={40} />
+                            <Image className="w-10 h-10" alt="sunrise" src="/icons/sunrise.svg"
+                                preload={true} width={40} height={40} />
                             <p>{sunSetter(sys.sunrise * 1000)}</p>
                         </div>
                         <div className="translate-x-1/4 flex flex-col self-start 5xm:translate-x-3.5 6xm:translate-x-3 items-center">
-                            <Image className="w-10 h-10" alt="sunset" src="/icons/sunset.svg" width={40} height={40} />
+                            <Image className="w-10 h-10" alt="sunset" src="/icons/sunset.svg" width={40} height={40} preload={true} />
                             <p>{sunSetter(sys.sunset * 1000)}</p>
                         </div>
                     </div>

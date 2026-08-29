@@ -1,16 +1,14 @@
-import { MapPin, MapPinPlus, Menu } from "lucide-react";
+import { MapPinPlus, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WeatherSearch } from "./WeatherSearch";
 import { WeatherTabs } from "./WeatherTabs";
+import { WeatherRefetch } from "./WeatherRefetch";
 
 export function WeatherHeader() {
-
   return (
     <header className="flex flex-col shadow-md">
       <div className="flex gap-2 items-center">
-        <Button variant="ghost" size="icon">
-          <MapPin />
-        </Button>
+        <WeatherRefetch />
         <WeatherSearch />
         <Button variant="ghost" size="icon">
           <MapPinPlus />

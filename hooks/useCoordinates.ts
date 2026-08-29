@@ -1,15 +1,14 @@
+import { GeoPosition } from "@/types/location.types";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export function useCoordinates(data: GeolocationPosition | null) {
+export function useCoordinates(data: GeoPosition | null) {
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    if (data?.coords?.latitude && data?.coords?.longitude) {
-      router.replace(
-        `${pathname}?lat=${data?.coords.latitude}&lon=${data?.coords.longitude}`,
-      );
+    if (data?.lat && data?.lon) {
+      router.replace(`${pathname}?lat=${data?.lat}&lon=${data?.lon}`);
     }
   }, [pathname, data]);
 }

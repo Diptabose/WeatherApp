@@ -1,21 +1,22 @@
 "use client";
 import { useCoordinates } from "@/hooks/useCoordinates";
-import { useLocationApi } from "@/hooks/useLocationApi";
-import { createContext, PropsWithChildren, useContext } from "react";
+import { useLocationManagement } from "@/hooks/useLocationManagement";
+import { GeoPosition } from "@/types/location.types";
+import { createContext, PropsWithChildren } from "react";
 
-const LocationContext = createContext<ReturnType<typeof useLocationApi>>({
+export const LocationContext = createContext<ReturnType<typeof useLocationManagement>>({
   error: null,
   isError: false,
   isSuccess: false,
   isLoading: true,
-  position: null,
-  getPosition: async () => { },
+  setOverride: () => { },
+  geoPosition: { lat: 0, lon: 0 },
+  isLocationOverride: false,
+  refetch: () => { }
 });
 
 export function LocationProvider({ children }: PropsWithChildren) {
-  const data = useLocationApi();
-  useCoordinates(data?.position);
+  const data = useLocationManagement();
+  useCoordinates(data?.geoPosition as GeoPosition);
   return <LocationContext value={data}>{children}</LocationContext>;
 }
-
-export const useLocation = () => useContext(LocationContext);

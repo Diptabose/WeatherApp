@@ -23,7 +23,8 @@ function WeatherHourlySetter({ icon, temp, time }: WeatherHourltSetterProps) {
             <Image
                 className="w-15 h-15"
                 src={`/icons/${icon}.svg`}
-                alt=""
+                alt="Hour"
+                preload={true}
                 width={60}
                 height={60}
             />

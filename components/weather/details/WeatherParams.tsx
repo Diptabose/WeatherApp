@@ -17,7 +17,7 @@ const weatherImageMapper: Record<string, string> = {
     UVI: "/icons/01d.svg",
     Speed: "/icons/wind.svg",
     WindDeg: "/icons/deg.svg",
-    Clouds: "/icons/03.svg"
+    Clouds: "/icons/03d.svg"
 };
 const weatherImageMap = new DefaultMap(Object.entries(weatherImageMapper));
 
@@ -42,6 +42,7 @@ export function WeatherParams({ param, paramValue }: WeatherParamProps) {
         >
             <div className="flex flex-1 flex-col items-center justify-center sm:mr-2 md:mr-2">
                 <Image
+                    preload={true}
                     className="w-10 h-10"
                     src={weatherImageMap.getOrDefault(param, DEFAULT_IMAGE)}
                     alt={param}

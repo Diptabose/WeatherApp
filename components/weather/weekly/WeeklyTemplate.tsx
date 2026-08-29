@@ -100,6 +100,7 @@ function AccordionOuter({ day, description, icon, max, min }: WeeklyOuterProps) 
                     width={56}
                     height={56}
                     src={`/icons/${icon}.svg`}
+                    preload={true}
                     alt="morning"
                 />
                 <div id="maxmin" className="flex flex-col ">

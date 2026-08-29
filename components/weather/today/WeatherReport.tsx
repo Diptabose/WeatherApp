@@ -16,9 +16,6 @@ export function WeatherReport({ weatherData, today, place }: WeatherReportProps)
     const weatherreport = (
         <div className="flex flex-col justify-center">
             <div>{greeter()}</div>
-            <div className="text-2xl font bold 2xm:text-2xl">
-                {today ? null : "Its Tomorrow!!!"}
-            </div>
             <div id="loactionName" className="text-2xl font-bold 2xm:text-xl">
                 {place}
             </div>
@@ -37,6 +34,7 @@ export function WeatherReport({ weatherData, today, place }: WeatherReportProps)
                         className="z-1 text-center w-32 h-32"
                         src={`/icons/${weather[0].icon}.svg`}
                         alt="Main Weather"
+                        preload={true}
                         width={128}
                         height={128}
                     />
@@ -54,17 +52,17 @@ export function WeatherReport({ weatherData, today, place }: WeatherReportProps)
                 className="flex justify-evenly my-2 md:w-1/2 lg:w-1/2 md:m-auto md:justify-between lg:m-auto lg:justify-between 2xm:text-xs "
             >
                 <div className="flex flex-col items-center">
-                    <Image className="w-14 h-14" src="/icons/03d.svg" alt="Clouds" width={56} height={56} />
+                    <Image className="w-14 h-14" src="/icons/03d.svg" alt="Clouds" width={56} height={56} preload={true} />
                     <span className="">{clouds.all}%</span>
                     <span>Clouds</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <Image className="w-14 h-14" src="/icons/humidity.svg" alt="Humidity" width={56} height={56} />
+                    <Image className="w-14 h-14" src="/icons/humidity.svg" alt="Humidity" width={56} height={56} preload={true} />
                     <span>{main.humidity}%</span>
                     <span>Humidity</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <Image className="w-14 h-14" src="/icons/wind.svg" alt="Wind" width={56} height={56} />
+                    <Image className="w-14 h-14" src="/icons/wind.svg" alt="Wind" width={56} height={56} preload={true} />
                     <span>{wind.speed}m/s</span>
                     <span>Wind</span>
                 </div>
