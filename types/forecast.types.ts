@@ -33,18 +33,18 @@ export interface ForecastData {
   cod: string;
   message: number | string;
   cnt: number;
-  list: [
-    dt: number,
-    main: ForecastMain,
-    weather: WeatherReport[],
-    clouds: WeatherCloud,
-    wind: WeatherWind,
-    visibility: number,
-    pop: number,
+  list: {
+    dt: number;
+    main: ForecastMain;
+    weather: WeatherReport[];
+    clouds: WeatherCloud;
+    wind: WeatherWind;
+    visibility: number;
+    pop: number;
     sys: {
       pod: string;
-    },
-    dt_txt: string,
-  ];
+    };
+    dt_txt: string;
+  }[];
   city: ForcastCity;
 }

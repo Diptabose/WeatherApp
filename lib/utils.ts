@@ -34,3 +34,14 @@ export function debounce<T extends (...args: any) => any>(
 export function capitalise(str: string): string {
   return str.charAt(0).toUpperCase().concat(str.slice(1));
 }
+
+export function setHour(time: number) {
+  let d = new Date(time * 1000);
+  return [d.getHours(), d.getMinutes()].join(":");
+}
+
+export class DefaultMap<K, V> extends Map<K, V> {
+  getOrDefault(key: K, defaultValue: V): V {
+    return this.get(key) ?? defaultValue;
+  }
+}
