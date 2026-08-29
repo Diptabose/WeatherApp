@@ -21,10 +21,10 @@ const TomorrowPage = async ({ searchParams }: PageProps<"/today">) => {
   const { weatherData, hourlyData } = adaptTomorrow(data);
 
   return <>
-    <WeatherReport today={true} weatherData={weatherData as WeatherData} place={data.name} />
+    <WeatherReport today={false} weatherData={weatherData as WeatherData} place={data.name} />
     <WeatherHourly hourly={hourlyData} />
     <WeatherPlot hourly={hourlyData} />
-    <WeatherDetails today={true} weatherData={weatherData as WeatherData} />
+    <WeatherDetails today={false} weatherData={weatherData as WeatherData} />
   </>;
 };
 export default TomorrowPage;

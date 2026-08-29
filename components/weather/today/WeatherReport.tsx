@@ -16,7 +16,7 @@ export function WeatherReport({ weatherData, today, place }: WeatherReportProps)
     const weatherreport = (
         <div className="flex flex-col justify-center">
             <div>{greeter()}</div>
-            <div className="text-3xl font bold 2xm:text-2xl">
+            <div className="text-2xl font bold 2xm:text-2xl">
                 {today ? null : "Its Tomorrow!!!"}
             </div>
             <div id="loactionName" className="text-2xl font-bold 2xm:text-xl">
