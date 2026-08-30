@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const TodayLoading = () => {
+const TomorrowLoading = () => {
     return (
         <div className="flex flex-col h-full gap-2">
 
@@ -14,4 +14,4 @@ const TodayLoading = () => {
     )
 }
 
-export default TodayLoading;
+export default TomorrowLoading;

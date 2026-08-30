@@ -45,3 +45,7 @@ export class DefaultMap<K, V> extends Map<K, V> {
     return this.get(key) ?? defaultValue;
   }
 }
+
+export function randomNumber(range: number) {
+  return Math.floor(Math.random() * range + 1);
+}

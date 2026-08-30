@@ -14,6 +14,11 @@ const TomorrowPage = async ({ searchParams }: PageProps<"/today">) => {
     return <></>;
   }
 
+  const weatherResponse = await weatherClient.get<WeatherData>(
+    `/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric`,
+  );
+
+  const { name } = weatherResponse.data;
   const forecastResponse = await weatherClient.get<ForecastData>(
     `/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric`,
   );
@@ -21,7 +26,7 @@ const TomorrowPage = async ({ searchParams }: PageProps<"/today">) => {
   const { weatherData, hourlyData } = adaptTomorrow(data);
 
   return <>
-    <WeatherReport today={false} weatherData={weatherData as WeatherData} place={data.name} />
+    <WeatherReport today={false} weatherData={weatherData as WeatherData} place={name} />
     <WeatherHourly hourly={hourlyData} />
     <WeatherPlot hourly={hourlyData} />
     <WeatherDetails today={false} weatherData={weatherData as WeatherData} />

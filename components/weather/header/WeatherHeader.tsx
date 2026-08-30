@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { WeatherSearch } from "./WeatherSearch";
 import { WeatherTabs } from "./WeatherTabs";
 import { WeatherRefetch } from "./WeatherRefetch";
+import Link from "next/link";
 
 export function WeatherHeader() {
   return (
@@ -11,7 +12,9 @@ export function WeatherHeader() {
         <WeatherRefetch />
         <WeatherSearch />
         <Button variant="ghost" size="icon">
-          <MapPinPlus />
+          <Link href="/saved-locations">
+            <MapPinPlus />
+          </Link>
         </Button>
         <Button variant="ghost" size="icon">
           <Menu />

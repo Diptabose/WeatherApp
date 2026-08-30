@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const TodayLoading = () => {
+const SavedLocationsLoading = () => {
     return (
         <div className="flex flex-col h-full gap-2">
 
@@ -11,7 +11,7 @@ const TodayLoading = () => {
             </div>
             <Skeleton className="rounded-md flex-1" />
         </div>
-    )
+    );
 }
 
-export default TodayLoading;
+export default SavedLocationsLoading;
