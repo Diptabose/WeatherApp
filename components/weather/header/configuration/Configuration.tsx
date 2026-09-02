@@ -25,7 +25,6 @@ const allThemeItems = [{
 }, ...themeItems];
 export function Configuration() {
     const { setTheme, theme } = useTheme();
-    console.log("The theme", theme);
     return (
         <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
