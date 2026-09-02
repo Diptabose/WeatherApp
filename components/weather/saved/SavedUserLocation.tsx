@@ -18,7 +18,7 @@ interface SavedLocationEmptyProps extends PropsWithChildren {
 
 function SavedLocationEmpty({ children, isEmpty }: SavedLocationEmptyProps) {
     if (isEmpty) {
-        return <div className="flex flex-col justify-center items-center gap-2">
+        return <div className="flex flex-col justify-center items-center gap-2 justify-self-center my-auto -translate-y-1/2">
             <MapPinPen className="size-12" />
             <div className="text-center flex flex-col gap-2">
                 <span>No locations saved.</span>
@@ -29,9 +29,8 @@ function SavedLocationEmpty({ children, isEmpty }: SavedLocationEmptyProps) {
     return children;
 }
 
-
 function SavedLocationRoot({ children }: PropsWithChildren) {
-    return (<div className="flex flex-col relative w-full py-2">
+    return (<div className="flex flex-col relative w-full py-2 h-full">
         {children}
     </div>);
 }
@@ -44,26 +43,24 @@ export function SavedUserLocations({ lat, lon, place }: SavedUserLocationsProps)
 
     const userLocationCards = (
         <SavedLocationRoot>
-            <div className="flex w-full flex-col">
-                <SavedLocationEmpty isEmpty={locations.length === 0}>
-                    {
-                        locations.map((loc) => {
-                            return (
-                                <LocationCard
-                                    {...loc}
-                                    removeLocation={removeLocation}
-                                    setOverride={setOverride}
-                                    key={loc.lat}
-                                />
-                            );
-                        })
-                    }
-                </SavedLocationEmpty>
-            </div>
+            <SavedLocationEmpty isEmpty={locations.length === 0}>
+                {
+                    locations.map((loc) => {
+                        return (
+                            <LocationCard
+                                {...loc}
+                                removeLocation={removeLocation}
+                                setOverride={setOverride}
+                                key={loc.lat}
+                            />
+                        );
+                    })
+                }
+            </SavedLocationEmpty>
             <div className="flex flex-col items-end fixed bottom-0 self-end mb-4 mr-4">
                 <Button
                     aria-label="add-icon"
-                    className="flex items-center justify-center size-10 rounded-full text-white shadow-md"
+                    className="flex items-center justify-center size-10 rounded-full shadow-md"
                     onClick={() => {
                         addLocation({ lat, lon, place });
                     }}

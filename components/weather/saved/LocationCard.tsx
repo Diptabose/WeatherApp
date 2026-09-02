@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { randomNumber } from "@/lib/utils";
 import { useLocationManagement } from "@/hooks/useLocationManagement";
 import { useRouter } from "next/navigation";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const locationImages = [
     "/bg/foggy.jpeg",
@@ -27,17 +28,18 @@ export function LocationCard({ lat, lon, place, removeLocation, setOverride }: L
 
     const router = useRouter();
     const bg = useRef(() => locationImages[randomNumber(5)]);
+
+    function handleCardClick() {
+        setOverride({ lat, lon });
+        router.push('/today');
+    }
     const lt = (
         <div
             className="p-4 m-2 rounded-md flex shadow-md object-cover cursor-pointer text-xs overflow-hidden"
         >
             <div
                 className="flex-1"
-                onClick={() => {
-                    setOverride({ lat, lon });
-                    router.push('/today');
-                }
-                }
+                onClick={handleCardClick}
             >
                 <div className="font-bold text-xl">
                     {place}
@@ -59,5 +61,32 @@ export function LocationCard({ lat, lon, place, removeLocation, setOverride }: L
             </div>
         </div >
     );
-    return lt;
+    return (
+        <Card onClick={handleCardClick} className="relative">
+            <CardHeader className="justify-between">
+                <CardTitle> {place}</CardTitle>
+
+            </CardHeader>
+            <CardContent>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <div>
+                            <span className="mr-2">Longitude</span>
+                            <span>{lat}</span>
+                        </div>
+                        <div>
+                            <span className="mr-2">Latitude</span>
+                            <span>{lon}</span>
+                        </div>
+                    </div>
+                    <Button variant="ghost" className="absolute top-1/3 left-[92%] size-12 rounded-full" onClick={(event) => {
+                        event.stopPropagation();
+                        removeLocation(place);
+                    }}>
+                        <Minus />
+                    </Button>
+                </div>
+            </CardContent>
+        </Card>
+    );
 }

@@ -4,6 +4,7 @@ import { WeatherSearch } from "./WeatherSearch";
 import { WeatherTabs } from "./WeatherTabs";
 import { WeatherRefetch } from "./WeatherRefetch";
 import Link from "next/link";
+import { WeatherConfigurationDialog } from "./WeatherConfigurationDialog";
 
 export function WeatherHeader() {
   return (
@@ -16,9 +17,7 @@ export function WeatherHeader() {
             <MapPinPlus />
           </Link>
         </Button>
-        <Button variant="ghost" size="icon">
-          <Menu />
-        </Button>
+        <WeatherConfigurationDialog />
       </div>
       <div>
         <WeatherTabs />
