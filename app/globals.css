@@ -170,11 +170,11 @@
   }
 }
 
-/* .myscroll::-webkit-scrollbar {
+.myscroll::-webkit-scrollbar {
   display: none;
 }
 
 .myscroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
-} */
+}
