@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/combobox";
 import { useLocation } from "@/hooks/useLocation";
 import { getLabel } from "@/lib/weather";
-import { search } from "@/services/weather.service";
+import { search } from "@/actions/search";
 import { LocationSearch } from "@/types/search.types";
 import { ComboboxRoot } from "@base-ui/react/combobox";
 import { useDebouncedCallback } from "@tanstack/react-pacer";

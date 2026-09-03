@@ -1,8 +1,12 @@
 "use client";
 import { Switch } from "@/components/ui/switch"
-import { Select, SelectItem, SelectValue, SelectTrigger, SelectContent, SelectLabel } from "@/components/ui/select";
-import { useState } from "react";
+import { Select, SelectItem, SelectValue, SelectTrigger, SelectContent } from "@/components/ui/select";
 import { useTheme } from "next-themes";
+import { deregisterPushSubscription } from "@/actions/subscribe-notifcation";
+import { NotificationConfiguration } from "./NotificationConfiguration";
+
+
+
 
 const themeItems = [
     {
@@ -23,8 +27,20 @@ const allThemeItems = [{
     label: "Select theme",
     value: null,
 }, ...themeItems];
+
+
+
 export function Configuration() {
     const { setTheme, theme } = useTheme();
+
+
+
+
+
+
+
+
+
     return (
         <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -48,14 +64,7 @@ export function Configuration() {
                 </span>
             </div>
             <div className="flex items-center justify-between">
-                <span className="font-semibold">
-                    Notifications
-                </span>
-                <span>
-                    <Switch onCheckedChange={(checked, event) => {
-                        console.log(checked, event);
-                    }} />
-                </span>
+                <NotificationConfiguration />
             </div>
         </div>
     )
