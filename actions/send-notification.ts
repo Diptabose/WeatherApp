@@ -21,7 +21,7 @@ export async function sendNotification(
 ) {
   try {
     const result = await webpush.sendNotification(sub, JSON.stringify(data));
-    console.log("[WEBPUSH", result);
+    console.log("[WEBPUSH]: Send Notification", result.statusCode);
     return { success: true, ...result };
   } catch (error) {
     console.error("[WEBPUSH]: Error sending push notification:", error);
