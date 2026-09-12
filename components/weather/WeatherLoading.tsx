@@ -7,20 +7,11 @@ interface WeatherLoadingProps extends PropsWithChildren {
   containerProps?: React.ComponentProps<"div">;
 }
 
-export function WeatherLoading({
-  children,
-  isLoading,
-}: WeatherLoadingProps) {
+export function WeatherLoading({ children, isLoading }: WeatherLoadingProps) {
   if (isLoading) {
     return (
-      <div
-        className={cn(
-          "h-full flex items-center justify-center",
-
-        )}
-      >
+      <div className={cn("h-full flex items-center justify-center")}>
         Loading...
-
       </div>
     );
   }

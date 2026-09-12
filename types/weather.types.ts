@@ -32,7 +32,7 @@ export interface WeatherCloud {
 }
 
 export interface WeatherSys {
-  country: string;
+  country?: string;
   sunrise: number;
   sunset: number;
 }
@@ -52,5 +52,3 @@ export interface WeatherData {
   name: string;
   cod: number;
 }
-
-

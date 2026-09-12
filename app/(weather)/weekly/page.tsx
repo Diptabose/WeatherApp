@@ -4,7 +4,6 @@ import { weatherClient } from "@/services/weather.server-client";
 import { ForecastData } from "@/types/forecast.types";
 
 const NextDaysPage = async ({ searchParams }: PageProps<"/weekly">) => {
-
   const { lat, lon } = await searchParams;
   if (!lat || !lon) {
     return <></>;
@@ -18,6 +17,6 @@ const NextDaysPage = async ({ searchParams }: PageProps<"/weekly">) => {
     <>
       <WeatherWeekly weekly={data.daily} />
     </>
-  )
+  );
 };
 export default NextDaysPage;

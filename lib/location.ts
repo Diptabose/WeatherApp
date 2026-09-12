@@ -6,7 +6,7 @@ export function getLocation(): Promise<GeolocationPosition> {
       },
       (error: GeolocationPositionError) => {
         reject(error);
-      }
+      },
     );
   });
 }

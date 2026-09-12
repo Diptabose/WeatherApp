@@ -1,11 +1,12 @@
 import { WeatherData } from "@/types/weather.types";
 import { WeatherParams } from "./WeatherParams";
 import { WeatherSunAnimation } from "./WeatherSunAnimation";
+import { WeatherSectionTitle } from "../WeatherSection";
 
 interface WeatherDetailsProps {
-  today: boolean,
-  weatherData: WeatherData,
-  uvi?: unknown
+  today: boolean;
+  weatherData: WeatherData;
+  uvi?: unknown;
 }
 
 function WeatherDetails({ weatherData, today, uvi }: WeatherDetailsProps) {
@@ -26,17 +27,12 @@ function WeatherDetails({ weatherData, today, uvi }: WeatherDetailsProps) {
   };
 
   const weatherdetails = (
-    <div className="my-1">
-      <p className="text-xl font-bold">Details</p>
-      <div className="border-t-2 pt-2  py-4 w-full">
-        <div
-          className="rounded-lg py-2 my-2 min-w-fit flex sm:w-8/12 md:w-8/12 sm:m-auto md:m-auto lg:w-8/12 lg:m-auto xxs:m-auto lg:my-2 2xm:flex-col 2xm:min-w-full  xxs:w-8/12  xs:min-w-ful"
-        >
-          <div
-            id="left"
-            className=" w-1/2 flex flex-col items-center border-r-2  2xm:w-full 2xm:border-r-0"
-          >
-            <div className=" flex flex-col md:w-8/12 lg:w-8/12 xs:w-full 2xm:w-full  2xm:items-center ">
+    <>
+      <WeatherSectionTitle name="Details" />
+      <div className="py-4 w-full">
+        <div className="rounded-lg py-2 my-2 flex">
+          <div id="left-details" className="w-1/2 flex flex-col items-center">
+            <div className="w-full flex flex-col gap-1">
               {Object.entries(detailsLeft).map((element) => {
                 return (
                   <WeatherParams
@@ -48,11 +44,9 @@ function WeatherDetails({ weatherData, today, uvi }: WeatherDetailsProps) {
               })}
             </div>
           </div>
-          <div
-            id="right"
-            className="w-1/2 flex flex-col items-center 2xm:w-full "
-          >
-            <div className="flex flex-col md:w-8/12 lg:w-8/12 xs:w-full 2xm:w-full 2xm:items-center">
+          <div className="w-px bg-slate-500"></div>
+          <div id="right-details" className="w-1/2 flex flex-col items-center">
+            <div className="flex flex-col w-full gap-2">
               {Object.entries(detailsRight).map((element) => {
                 return (
                   <WeatherParams
@@ -66,9 +60,7 @@ function WeatherDetails({ weatherData, today, uvi }: WeatherDetailsProps) {
           </div>
         </div>
       </div>
-
-      <WeatherSunAnimation sys={sys} today={today} />
-    </div >
+    </>
   );
   return weatherdetails;
 }

@@ -14,11 +14,11 @@ const robotoMono = Roboto_Mono({
   subsets: ["latin"],
 });
 
-
 const APP_NAME = "Weather App";
 const APP_DEFAULT_TITLE = "Weather App";
 const APP_TITLE_TEMPLATE = "%s - Weather App";
-const APP_DESCRIPTION = "Weather App to provide today' tomorrow and next 5 days of weather.";
+const APP_DESCRIPTION =
+  "Weather App to provide today' tomorrow and next 5 days of weather.";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
@@ -55,8 +55,7 @@ export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };
 
-
-const themes = ['light', 'dark'];
+const themes = ["light", "dark"];
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -72,6 +71,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </ThemeProvider>
         </SerwistProvider>
       </body>
-    </html >
+    </html>
   );
 }

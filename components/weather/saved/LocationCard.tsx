@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { randomNumber } from "@/lib/utils";
-import { useLocationManagement } from "@/hooks/useLocationManagement";
 import { useRouter } from "next/navigation";
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card,CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const locationImages = [
     "/bg/foggy.jpeg",

@@ -12,13 +12,13 @@ interface WeatherErrorProps extends PropsWithChildren {
 const geoErrorMap = new DefaultMap([
   [1, MapPinOff],
   [2, MapPinXInside],
-  [3, MapPinX]
+  [3, MapPinX],
 ]);
 
 const geoErrorMessageMap = new DefaultMap([
   [1, "Access to Location was denied."],
   [2, "Couldn't get your location."],
-  [3, "Access to location timed out."]
+  [3, "Access to location timed out."],
 ]);
 
 export function WeatherError({ isError, error, children }: WeatherErrorProps) {
@@ -26,7 +26,10 @@ export function WeatherError({ isError, error, children }: WeatherErrorProps) {
 
   if (isError) {
     const Icon = geoErrorMap.getOrDefault(error?.code!, MapPinX);
-    const message = geoErrorMessageMap.getOrDefault(error?.code!, "Access denied.");
+    const message = geoErrorMessageMap.getOrDefault(
+      error?.code!,
+      "Access denied.",
+    );
     return (
       <div className="flex flex-col gap-4 items-center justify-center h-full">
         <div className="flex flex-col items-center gap-2">
@@ -35,7 +38,7 @@ export function WeatherError({ isError, error, children }: WeatherErrorProps) {
         </div>
         <Button onClick={refetch}>Retry</Button>
       </div>
-    )
+    );
   }
   return children;
 }

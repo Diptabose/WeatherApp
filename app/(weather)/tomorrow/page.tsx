@@ -6,6 +6,7 @@ import { ForecastData } from "@/types/forecast.types";
 import { adaptForecast, adaptTomorrow } from "@/lib/weather";
 import WeatherPlot from "@/components/weather/hourly/WeatherPlot";
 import WeatherHourly from "@/components/weather/hourly/WeatherHourly";
+import { WeatherSunAnimation } from "@/components/weather/details/WeatherSunAnimation";
 
 const TomorrowPage = async ({ searchParams }: PageProps<"/today">) => {
   const { lat, lon } = await searchParams;
@@ -25,11 +26,14 @@ const TomorrowPage = async ({ searchParams }: PageProps<"/today">) => {
   const data = adaptForecast(forecastResponse.data);
   const { weatherData, hourlyData } = adaptTomorrow(data);
 
-  return <>
-    <WeatherReport today={false} weatherData={weatherData as WeatherData} place={name} />
-    <WeatherHourly hourly={hourlyData} />
-    <WeatherPlot hourly={hourlyData} />
-    <WeatherDetails today={false} weatherData={weatherData as WeatherData} />
-  </>;
+  return (
+    <>
+      <WeatherReport weatherData={weatherData as WeatherData} place={name} />
+      <WeatherHourly hourly={hourlyData} />
+      <WeatherPlot hourly={hourlyData} />
+      <WeatherDetails today={false} weatherData={weatherData as WeatherData} />
+      <WeatherSunAnimation sys={weatherData.sys} today={false} />
+    </>
+  );
 };
 export default TomorrowPage;

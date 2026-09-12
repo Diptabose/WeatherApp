@@ -4,15 +4,17 @@ import { useLocationManagement } from "@/hooks/useLocationManagement";
 import { GeoPosition } from "@/types/location.types";
 import { createContext, PropsWithChildren } from "react";
 
-export const LocationContext = createContext<ReturnType<typeof useLocationManagement>>({
+export const LocationContext = createContext<
+  ReturnType<typeof useLocationManagement>
+>({
   error: null,
   isError: false,
   isSuccess: false,
   isLoading: true,
-  setOverride: () => { },
+  setOverride: () => {},
   geoPosition: { lat: 0, lon: 0 },
   isLocationOverride: false,
-  refetch: () => { }
+  refetch: () => {},
 });
 
 export function LocationProvider({ children }: PropsWithChildren) {
