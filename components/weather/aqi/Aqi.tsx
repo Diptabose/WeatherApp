@@ -58,7 +58,7 @@ export function AirQualityIndex({ aqi }: AirQualityIndexProps) {
   const aqiComponent = (
     <>
       <WeatherSectionTitle name="Air Quality Index" />
-      <div className="flex flex-col sm:flex-row sm:gap-2 sm:items-center sm:justify-center">
+      <div className="flex flex-col sm:flex-row sm:gap-2 sm:items-center sm:justify-center py-2">
         <div className="flex items-center justify-around  text-white">
           <AirQualityIndicator aqi={main.aqi} />
         </div>

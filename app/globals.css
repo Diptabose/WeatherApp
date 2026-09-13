@@ -79,10 +79,6 @@
   margin-top: env(safe-area-inset-top);
 }
 
-.mb-safe {
-  margin-bottom: env(safe-area-inset-bottom);
-}
-
 .arc:after {
   transform: rotate(var(--rotor-degree, 135deg));
 }
