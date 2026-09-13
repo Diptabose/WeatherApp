@@ -7,13 +7,14 @@ import {
   ComboboxItem,
   ComboboxList,
 } from "@/components/ui/combobox";
+import { Spinner } from "@/components/ui/spinner";
 import { useLocation } from "@/hooks/useLocation";
 import { getLabel } from "@/lib/weather";
 import { search } from "@/actions/search";
 import { LocationSearch } from "@/types/search.types";
 import { ComboboxRoot } from "@base-ui/react/combobox";
 import { useDebouncedCallback } from "@tanstack/react-pacer";
-import { startTransition, useState } from "react";
+import { useState, useTransition } from "react";
 
 export function WeatherSearch() {
   const { setOverride } = useLocation();
@@ -22,6 +23,7 @@ export function WeatherSearch() {
   const [searchedLocations, setSearchedLocations] = useState<LocationSearch[]>(
     [],
   );
+  const [isSearching, startSearchTransition] = useTransition();
 
   function onInputValueChange(
     inputValue: string,
@@ -30,7 +32,7 @@ export function WeatherSearch() {
     if (event.reason === "item-press" || inputValue.trim() === "") {
       return;
     }
-    startTransition(async () => {
+    startSearchTransition(async () => {
       const results = await search(inputValue);
       setSearchedLocations(results);
     });
@@ -56,23 +58,33 @@ export function WeatherSearch() {
           setSearchedLocation(value);
           setOverride({ lat: value.lat, lon: value.lon });
         }
+        (document.activeElement as HTMLElement | null)?.blur();
       }}
     >
       <ComboboxInput
-        className="w-full has-[[data-slot=input-group-control]:focus-visible]:ring-0 has-[[data-slot=input-group-control]:focus-visible]:border-ring rounded-l-full rounded-r-full bg-surface"
+        className="w-full h-11 sm:h-8 has-[[data-slot=input-group-control]:focus-visible]:ring-0 has-[[data-slot=input-group-control]:focus-visible]:border-ring rounded-l-full rounded-r-full bg-surface"
         showTrigger={false}
         placeholder="Search for places"
-        inputClassName="items placeholder:text-sm"
+        inputClassName="items text-base sm:text-sm placeholder:text-base sm:placeholder:text-sm"
       />
       <ComboboxContent className="min-w-(--anchor-width)">
-        <ComboboxEmpty>No places found.</ComboboxEmpty>
-        <ComboboxList>
-          {(country: LocationSearch) => (
-            <ComboboxItem key={country.lat + country.lon} value={country}>
-              {country.name}, {country?.state} {country.country}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
+        {isSearching ? (
+          <div className="flex items-center justify-center gap-2 py-4 text-sm text-muted-foreground">
+            <Spinner className="size-4" />
+            Searching...
+          </div>
+        ) : (
+          <>
+            <ComboboxEmpty>No places found.</ComboboxEmpty>
+            <ComboboxList>
+              {(country: LocationSearch) => (
+                <ComboboxItem key={country.lat + country.lon} value={country}>
+                  {country.name}, {country?.state} {country.country}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </>
+        )}
       </ComboboxContent>
     </Combobox>
   );

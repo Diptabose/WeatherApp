@@ -9,7 +9,7 @@ export function WeatherHourlySkeleton() {
           <Skeleton key={index} className="min-w-12 h-24 shrink-0 rounded" />
         ))}
       </div>
-      <Skeleton className="h-[200px] w-full rounded-md" />
+      <Skeleton className="h-50 w-full rounded-md" />
     </div>
   );
 }

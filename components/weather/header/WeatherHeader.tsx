@@ -8,8 +8,8 @@ import { WeatherConfigurationDialog } from "./WeatherConfigurationDialog";
 
 export function WeatherHeader() {
   return (
-    <header className="flex flex-col shadow-md gap-2 px-2 pt-2">
-      <div className="flex gap-2 items-center justify-between">
+    <header className="flex flex-col shadow-sm gap-4 sm:gap-3 px-4 sm:px-3 pt-4 sm:pt-3 mt-safe">
+      <div className="flex gap-4 sm:gap-2 items-center justify-between">
         <div className="hidden sm:block">
           <WeatherRefetch />
         </div>
@@ -19,14 +19,18 @@ export function WeatherHeader() {
         <div className="hidden sm:block w-full">
           <WeatherSearch />
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-1 shrink-0">
           <div className="sm:hidden">
             <WeatherRefetch />
           </div>
-          <Button variant="ghost" size="icon">
-            <Link href="/saved-locations">
-              <MapPinPlus className="size-5" />
-            </Link>
+          <Button
+            variant="ghost"
+            size="icon-lg"
+            nativeButton={false}
+            className="active:scale-90 sm:active:scale-100 transition-transform min-h-11 min-w-11 sm:min-h-0 sm:min-w-0"
+            render={<Link href="/saved-locations" />}
+          >
+            <MapPinPlus className="size-5" />
           </Button>
           <WeatherConfigurationDialog />
         </div>

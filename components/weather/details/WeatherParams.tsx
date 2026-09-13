@@ -34,7 +34,7 @@ const metricMap = new DefaultMap(Object.entries(metricMapper));
 export function WeatherParams({ param, paramValue }: WeatherParamProps) {
   const details = (
     <div className={`flex items-center`}>
-      <div className="flex flex-1 flex-col items-center justify-center sm:mr-2 md:mr-2">
+      <div className="flex flex-1 flex-col items-center justify-center sm:mr-2">
         <Image
           preload={true}
           className="w-10 h-10"

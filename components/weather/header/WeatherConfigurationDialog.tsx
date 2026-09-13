@@ -19,7 +19,12 @@ export function WeatherConfigurationDialog() {
   }
   return (
     <>
-      <Button variant="ghost" size="icon" onClick={handleOpen}>
+      <Button
+        variant="ghost"
+        size="icon-lg"
+        className="active:scale-90 sm:active:scale-100 transition-transform min-h-11 min-w-11 sm:min-h-0 sm:min-w-0"
+        onClick={handleOpen}
+      >
         <Menu className="size-5" />
       </Button>
       <Dialog

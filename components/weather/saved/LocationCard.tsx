@@ -58,13 +58,13 @@ export function LocationCard({
       </CardContent>
       <Button
         variant="outline"
-        className="absolute size-5 top-1/2 right-2 -translate-y-1/2 rounded-full min-w-0 shrink-0"
+        className="absolute size-8 sm:size-5 top-1/2 right-2 -translate-y-1/2 rounded-full min-w-0 shrink-0"
         onClick={(event) => {
           event.stopPropagation();
           removeLocation(place);
         }}
       >
-        <X className="size-2" />
+        <X className="size-3 sm:size-2" />
       </Button>
     </Card>
   );

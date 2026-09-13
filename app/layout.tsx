@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: APP_DEFAULT_TITLE,
   },
+  icons: {
+    apple: "/icons/android-chrome-192x192.png",
+  },
   formatDetection: {
     telephone: false,
   },
@@ -54,6 +57,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#FFFFFF",
+  viewportFit: "cover",
 };
 
 const themes = ["light", "dark"];

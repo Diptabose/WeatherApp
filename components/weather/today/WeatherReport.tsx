@@ -12,12 +12,14 @@ export function WeatherReport({ weatherData, place }: WeatherReportProps) {
   const { weather, main, clouds, wind, dt } = weatherData;
 
   const weatherreport = (
-    <div className="flex flex-col min-w-0 justify-center">
-      <div>{greeter()}</div>
+    <div className="flex flex-col min-w-0 justify-center gap-0.5">
+      <div className="text-sm text-muted-foreground">{greeter()}</div>
       <div id="loactionName" className="min-w-0 truncate text-2xl font-bold">
         {place}
       </div>
-      <div>{new Date(dt * 1000).toDateString()}</div>
+      <div className="text-sm text-muted-foreground">
+        {new Date(dt * 1000).toDateString()}
+      </div>
       <div id="weatherimg and temp" className="flex flex-col">
         <div id="blur" className="relative flex justify-center">
           <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">

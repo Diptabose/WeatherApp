@@ -26,6 +26,8 @@ export function useLocationApi() {
   const getGeoLocation = useCallback(async () => {
     try {
       setIsLoading(true);
+      setIsError(false);
+      setGeoLocationError(null);
       const geolocation = await getLocation();
       const geoLocationJson = geolocation.toJSON() as GeolocationPositionJSON;
       geoLocationJson.coords.latitude = Number(
@@ -37,6 +39,7 @@ export function useLocationApi() {
       setIsSuccess(true);
       setGeoLocationPosition(geoLocationJson);
     } catch (err) {
+      setIsSuccess(false);
       setIsError(true);
       setGeoLocationError(err as GeolocationPositionError);
     } finally {
