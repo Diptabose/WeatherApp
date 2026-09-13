@@ -3,7 +3,7 @@ import { WeatherReport } from "@/components/weather/today/WeatherReport";
 import { weatherClient } from "@/services/weather.server-client";
 import { WeatherData } from "@/types/weather.types";
 import { ForecastData } from "@/types/forecast.types";
-import { adaptForecast, adaptTomorrow } from "@/lib/weather";
+import { adaptForecast, adaptTomorrow, normalizePlaceName } from "@/lib/weather";
 import WeatherPlot from "@/components/weather/hourly/WeatherPlot";
 import WeatherHourly from "@/components/weather/hourly/WeatherHourly";
 import { WeatherSunAnimation } from "@/components/weather/details/WeatherSunAnimation";
@@ -28,7 +28,10 @@ const TomorrowPage = async ({ searchParams }: PageProps<"/today">) => {
 
   return (
     <>
-      <WeatherReport weatherData={weatherData as WeatherData} place={name} />
+      <WeatherReport
+        weatherData={weatherData as WeatherData}
+        place={normalizePlaceName(name)}
+      />
       <WeatherHourly hourly={hourlyData} />
       <WeatherPlot hourly={hourlyData} />
       <WeatherDetails today={false} weatherData={weatherData as WeatherData} />

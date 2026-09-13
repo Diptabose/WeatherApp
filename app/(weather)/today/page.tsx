@@ -6,6 +6,7 @@ import { WeatherHourlySkeleton } from "@/components/weather/hourly/WeatherHourly
 import { WeatherOneCall } from "@/components/weather/hourly/WeatherOneCall";
 import { WeatherReport } from "@/components/weather/today/WeatherReport";
 import { WeatherSectionErrorBoundary } from "@/components/weather/WeatherSectionError";
+import { normalizePlaceName } from "@/lib/weather";
 import { weatherClient } from "@/services/weather.server-client";
 import { WeatherData } from "@/types/weather.types";
 import { Suspense } from "react";
@@ -24,7 +25,7 @@ const TodayPage = async ({ searchParams }: PageProps<"/today">) => {
 
   return (
     <>
-      <WeatherReport weatherData={data} place={data.name} />
+      <WeatherReport weatherData={data} place={normalizePlaceName(data.name)} />
       <WeatherSectionErrorBoundary title="the hourly forecast">
         <Suspense fallback={<WeatherHourlySkeleton />}>
           <WeatherOneCall lat={lat as string} lon={lon as string} />

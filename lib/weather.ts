@@ -5,6 +5,63 @@ export function getLabel(item: LocationSearch) {
   return `${item.name}, ${item?.state} ${item.country}`;
 }
 
+// Unicode blocks that hold combining diacritical marks (accents, tildes,
+// macrons, carons, ogoneks, etc.) - covers far more scripts (Vietnamese,
+// Nordic, Baltic, transliterated Indic names, ...) than just the common
+// combining-marks block. Expressed as decimal code-point ranges (rather than
+// a \u-escaped regex) since that's the only form that survives editor/tool
+// round-tripping without the escapes themselves getting corrupted.
+const COMBINING_MARK_RANGES: Array<[number, number]> = [
+  [768, 879], // Combining Diacritical Marks
+  [6832, 6911], // Combining Diacritical Marks Extended
+  [7616, 7679], // Combining Diacritical Marks Supplement
+  [8400, 8447], // Combining Diacritical Marks for Symbols
+  [65056, 65071], // Combining Half Marks
+];
+
+function isCombiningMark(codePoint: number): boolean {
+  return COMBINING_MARK_RANGES.some(
+    ([start, end]) => codePoint >= start && codePoint <= end,
+  );
+}
+
+// Precomposed letters that NFD/NFKD decomposition does NOT break into a
+// base letter + combining mark (they're distinct letters, not accented
+// forms), mapped to their closest plain-ASCII equivalent.
+const PRECOMPOSED_LETTERS: Record<string, string> = {
+  æ: "ae",
+  Æ: "AE",
+  œ: "oe",
+  Œ: "OE",
+  ø: "o",
+  Ø: "O",
+  ł: "l",
+  Ł: "L",
+  đ: "d",
+  Đ: "D",
+  ð: "d",
+  Ð: "D",
+  þ: "th",
+  Þ: "Th",
+  ß: "ss",
+  ı: "i",
+  İ: "I",
+};
+
+// OpenWeatherMap place names sometimes carry diacritics (e.g. "Kūkatpalli")
+// that render as a stray mark over the base letter on some devices/fonts.
+// Strip them down to their plain-ASCII base letters for display.
+export function normalizePlaceName(name: string): string {
+  const decomposed = name.normalize("NFKD");
+  let result = "";
+  for (const char of decomposed) {
+    const codePoint = char.codePointAt(0) ?? 0;
+    if (isCombiningMark(codePoint)) continue;
+    result += codePoint > 127 ? PRECOMPOSED_LETTERS[char] ?? "" : char;
+  }
+  return result;
+}
+
 export function greeter() {
   let date = new Date();
   let h = date.getHours();

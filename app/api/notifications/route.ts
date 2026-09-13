@@ -6,6 +6,7 @@ import {
   NotificationSubscriptionModel,
 } from "@/models/notification-subscription.model";
 import { NotificationRepository } from "@/repository/notification.repository";
+import { normalizePlaceName } from "@/lib/weather";
 import { weatherClient } from "@/services/weather.server-client";
 import { WeatherData } from "@/types/weather.types";
 import { NextRequest, NextResponse } from "next/server";
@@ -21,7 +22,7 @@ async function worker(data: NotificationSubscription) {
     weather,
     main: { feels_like, temp, temp_min, temp_max },
   } = weatherResponse.data;
-  const payload = `${name}\nFeels like: ${feels_like}°C\nTemp:${temp}°C\nMin:${temp_min.toFixed(1)}°C Max:${temp_max.toFixed(1)}°C\n${capitalize(weather[0].description)}\nWeatherApp`;
+  const payload = `${normalizePlaceName(name)}\nFeels like: ${feels_like}°C\nTemp:${temp}°C\nMin:${temp_min.toFixed(1)}°C Max:${temp_max.toFixed(1)}°C\n${capitalize(weather[0].description)}\nWeatherApp`;
   return await sendNotification(data.subscription, {
     title: "Today's Weather",
     body: payload,

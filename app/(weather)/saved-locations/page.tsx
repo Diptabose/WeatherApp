@@ -1,4 +1,5 @@
 import { SavedUserLocations } from "@/components/weather/saved/SavedUserLocation";
+import { normalizePlaceName } from "@/lib/weather";
 import { weatherClient } from "@/services/weather.server-client";
 import { WeatherData } from "@/types/weather.types";
 
@@ -19,7 +20,7 @@ const SavedLocationPage = async ({ searchParams }: PageProps<"/today">) => {
       <SavedUserLocations
         lat={parseInt(lat as string)}
         lon={parseInt(lon as string)}
-        place={data.name}
+        place={normalizePlaceName(data.name)}
       />
     </>
   );
