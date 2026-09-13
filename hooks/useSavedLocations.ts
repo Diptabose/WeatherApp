@@ -11,11 +11,11 @@ const STORAGE_NAME = "user-locations";
 export function useSavedLocations() {
   const [locations, setLocations] = useState<SavedLocation[]>([]);
   useEffect(() => {
-    // const locations = window.localStorage.getItem(STORAGE_NAME);
-    // if (locations) {
-    //   let parseLocations = JSON.parse(locations) as SavedLocation[];
-    //   setLocations(parseLocations);
-    // }
+    const storedLocations = window.localStorage.getItem(STORAGE_NAME);
+    if (storedLocations) {
+      const parsedLocations = JSON.parse(storedLocations) as SavedLocation[];
+      setLocations(parsedLocations);
+    }
   }, []);
 
   function addLocation(loc: SavedLocation) {

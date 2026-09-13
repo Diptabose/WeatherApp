@@ -1,3 +1,4 @@
+"use client";
 import { MapPinPlus, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WeatherSearch } from "./WeatherSearch";
@@ -5,10 +6,12 @@ import { WeatherTabs } from "./WeatherTabs";
 import { WeatherRefetch } from "./WeatherRefetch";
 import Link from "next/link";
 import { WeatherConfigurationDialog } from "./WeatherConfigurationDialog";
+import { useLocation } from "@/hooks/useLocation";
 
 export function WeatherHeader() {
+  const { geoPosition } = useLocation();
   return (
-    <header className="flex flex-col shadow-sm gap-4 sm:gap-3 px-4 sm:px-3 pt-4 sm:pt-3 mt-safe">
+    <header className="flex flex-col shadow-sm gap-1 sm:gap-3 px-4 sm:px-3 pt-2 sm:pt-3 mt-safe">
       <div className="flex gap-4 sm:gap-2 items-center justify-between">
         <div className="hidden sm:block">
           <WeatherRefetch />
@@ -28,7 +31,11 @@ export function WeatherHeader() {
             size="icon-lg"
             nativeButton={false}
             className="active:scale-90 sm:active:scale-100 transition-transform min-h-11 min-w-11 sm:min-h-0 sm:min-w-0"
-            render={<Link href="/saved-locations" />}
+            render={
+              <Link
+                href={`/saved-locations?lat=${geoPosition?.lat}&lon=${geoPosition?.lon}`}
+              />
+            }
           >
             <MapPinPlus className="size-5" />
           </Button>
