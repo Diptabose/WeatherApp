@@ -1,9 +1,13 @@
 "use client";
-import { useMemo } from "react";
-import ChartDataLabels from "chartjs-plugin-datalabels";
-import { Chart as ChartJS, registerables } from "chart.js";
-import { Line } from "react-chartjs-2";
-ChartJS.register(...registerables);
+
+import {
+  AreaChart,
+  Area,
+  Tooltip,
+  XAxis,
+  ResponsiveContainer,
+  LabelList,
+} from "recharts";
 
 interface WeatherPlotProps {
   hourly: {
@@ -13,89 +17,80 @@ interface WeatherPlotProps {
   }[];
 }
 
-function WeatherPlot({ hourly }: WeatherPlotProps) {
-  const { xl, dl } = useMemo(() => {
-    let xl: string[] = [];
-    let dl: number[] = [];
-    hourly.forEach((element) => {
-      const { dt, temp } = element;
-      let d = new Date(dt * 1000);
-      const afterTweleve = d.getHours() > 11;
-      const time = afterTweleve ? d.getHours() - 12 : d.getHours();
-      const timePrefix = afterTweleve ? "PM" : "AM";
-      xl.push([time, timePrefix].join(" "));
-      dl.push(Math.ceil(temp));
-    });
-    return { xl, dl };
-  }, [hourly]);
+function formatHour(dt: number) {
+  const d = new Date(dt * 1000);
+  const afterTwelve = d.getHours() > 11;
+  const hour = afterTwelve ? d.getHours() - 12 : d.getHours();
+  return `${hour} ${afterTwelve ? "PM" : "AM"}`;
+}
 
-  const plot = (
-    <div className="max-w-full overflow-x-auto m-auto sm:max-w-[70%] sm:max-h-[70%] md:max-w-[70%] lg:max-w-[70%]">
-      <Line
-        data={{
-          labels: xl,
-          datasets: [
-            {
-              data: dl,
-              label: "",
-              backgroundColor: "rgba(255,0,0,0.3)",
-              borderColor: "red",
-              pointRadius: 4,
-              pointBackgroundColor: "rgba(255,100,100,0.5)",
-              pointBorderColor: "red",
-              tension: 0.5,
-              fill: true,
-              datalabels: {
-                //color: theme.plotDataColor,
-                anchor: "end",
-                align: "top",
-                offset: 7,
-              },
-            },
-          ],
-        }}
-        plugins={[ChartDataLabels]}
-        options={{
-          layout: {
-            padding: {
-              top: 50,
-            },
-          },
-          responsive: true,
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-          scales: {
-            x: {
-              grid: {
-                display: false,
-              },
-              ticks: {
-                // color: theme.plotxColor,
-                minRotation: 0,
-                maxRotation: 0,
-              },
-            },
-            y: {
-              beginAtZero: false,
-              grid: {
-                display: false,
-              },
-              border: {
-                display: false,
-              },
-              ticks: {
-                display: false,
-                stepSize: 5,
-              },
-            },
-          },
-        }}
-      />
+function WeatherPlot({ hourly }: WeatherPlotProps) {
+  const recharPlot = (
+    <div className="max-w-full overflow-x-auto overflow-y-hidden scrollbar-none [&_.recharts-surface]:outline-none [&_.recharts-wrapper]:outline-none">
+      <div
+        className="mx-auto text-foreground/70"
+        style={{ width: hourly.length * 60, height: 200 }}
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart<WeatherPlotProps["hourly"][0]>
+            data={hourly}
+            margin={{ top: 20, left: 20, right: 20 }}
+          >
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--color-amber-200)"
+                  stopOpacity={0.7}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="var(--color-amber-200)"
+                  stopOpacity={0}
+                />
+              </linearGradient>
+            </defs>
+            <XAxis
+              dataKey="dt"
+              tickFormatter={formatHour}
+              tickLine={false}
+              axisLine={{ stroke: "currentColor", strokeOpacity: 0.2 }}
+              tick={{ fontSize: 11, fill: "currentColor" }}
+            />
+            <Tooltip
+              wrapperClassName="text-sm rounded-md overflow-hidden"
+              labelFormatter={(dt) => formatHour(Number(dt))}
+              formatter={(value) => [`${value}°C`, "Temp"]}
+              contentStyle={{
+                backgroundColor: "var(--color-white)",
+                border: "1px solid var(--color-gray-200)",
+              }}
+              labelStyle={{ color: "var(--color-gray-500)" }}
+            />
+            <Area
+              type="monotone"
+              dataKey="temp"
+              stroke="var(--color-amber-400)"
+              strokeWidth={2}
+              activeDot={{ stroke: "var(--color-amber-400)" }}
+              fillOpacity={1}
+              fill="url(#colorUv)"
+              isAnimationActive={true}
+              animationBegin={200}
+              animationDuration={1300}
+            >
+              <LabelList
+                dataKey="temp"
+                position="top"
+                style={{ fontSize: 11, fill: "currentColor" }}
+                formatter={(value) => `${value}°C`}
+              />
+            </Area>
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
-  return plot;
+  return recharPlot;
 }
 export default WeatherPlot;

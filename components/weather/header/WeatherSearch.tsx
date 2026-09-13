@@ -59,12 +59,12 @@ export function WeatherSearch() {
       }}
     >
       <ComboboxInput
-        className="w-full has-[[data-slot=input-group-control]:focus-visible]:ring-0 has-[[data-slot=input-group-control]:focus-visible]:border-ring rounded-l-full rounded-r-full bg-slate-100 border border-slate-200"
+        className="w-full has-[[data-slot=input-group-control]:focus-visible]:ring-0 has-[[data-slot=input-group-control]:focus-visible]:border-ring rounded-l-full rounded-r-full bg-surface"
         showTrigger={false}
         placeholder="Search for places"
         inputClassName="items placeholder:text-sm"
       />
-      <ComboboxContent>
+      <ComboboxContent className="min-w-(--anchor-width)">
         <ComboboxEmpty>No places found.</ComboboxEmpty>
         <ComboboxList>
           {(country: LocationSearch) => (

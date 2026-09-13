@@ -19,8 +19,8 @@ interface SavedLocationEmptyProps extends PropsWithChildren {
 function SavedLocationEmpty({ children, isEmpty }: SavedLocationEmptyProps) {
   if (isEmpty) {
     return (
-      <div className="flex flex-col justify-center items-center gap-2 justify-self-center my-auto -translate-y-1/2">
-        <MapPinPen className="size-12" />
+      <div className="flex flex-col justify-center items-center gap-2 justify-self-center my-auto">
+        <MapPinPen className="size-10" />
         <div className="text-center flex flex-col gap-2">
           <span>No locations saved.</span>
           <span className="text-center">
@@ -34,8 +34,14 @@ function SavedLocationEmpty({ children, isEmpty }: SavedLocationEmptyProps) {
 }
 
 function SavedLocationRoot({ children }: PropsWithChildren) {
+  return <div className="py-2 h-full flex flex-col">{children}</div>;
+}
+
+function SavedLocationGrid({ children }: PropsWithChildren) {
   return (
-    <div className="flex flex-col relative w-full py-2 h-full">{children}</div>
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(auto,200px))] gap-2">
+      {children}
+    </div>
   );
 }
 
@@ -50,27 +56,27 @@ export function SavedUserLocations({
   const userLocationCards = (
     <SavedLocationRoot>
       <SavedLocationEmpty isEmpty={locations.length === 0}>
-        {locations.map((loc) => {
-          return (
-            <LocationCard
-              {...loc}
-              removeLocation={removeLocation}
-              setOverride={setOverride}
-              key={loc.lat}
-            />
-          );
-        })}
+        <SavedLocationGrid>
+          {locations.map((loc) => {
+            return (
+              <LocationCard
+                {...loc}
+                removeLocation={removeLocation}
+                setOverride={setOverride}
+                key={loc.lat + loc.lon + loc.place}
+              />
+            );
+          })}
+        </SavedLocationGrid>
       </SavedLocationEmpty>
-      <div className="flex flex-col items-end fixed bottom-0 self-end mb-4 mr-4">
+      <div className="flex flex-col items-end fixed bottom-0 self-end mb-4 mr-4 right-0">
         <Button
           aria-label="add-icon"
           className="flex items-center justify-center size-10 rounded-full shadow-md"
           onClick={() => {
             addLocation({ lat, lon, place });
           }}
-          disabled={
-            lat === undefined || place === undefined || lon === undefined
-          }
+          disabled={!(lat && place && lon)}
         >
           <Plus />
         </Button>

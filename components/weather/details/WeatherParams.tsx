@@ -45,7 +45,7 @@ export function WeatherParams({ param, paramValue }: WeatherParamProps) {
         />
         <span className="font-bold truncate hidden sm:block">{param}</span>
       </div>
-      <div className="flex flex-1 flex-col gap-1 text-sm">
+      <div className="flex flex-1 min-w-0 flex-col gap-1 text-sm">
         <span className="sm:hidden font-bold">{param}</span>
         <span className="truncate">
           {paramValue}

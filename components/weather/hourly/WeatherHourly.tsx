@@ -19,7 +19,7 @@ interface WeatherHourlyProps {
 
 function WeatherHourlySetter({ icon, temp, time }: WeatherHourltSetterProps) {
   const data = (
-    <div className="flex flex-col items-center p-2 rounded bg-sky-900 text-sm">
+    <div className="min-w-12 shrink-0 flex flex-col items-center p-2 rounded bg-sky-600 text-sm">
       <span id="hourtime" className="text-white">
         {setHour(time)}
       </span>
@@ -41,9 +41,9 @@ function WeatherHourlySetter({ icon, temp, time }: WeatherHourltSetterProps) {
 
 function WeatherHourly({ hourly }: WeatherHourlyProps) {
   const weatherhourly = (
-    <div>
+    <div className="flex flex-col gap-2">
       <WeatherSectionTitle name="Hourly" />
-      <div className="flex gap-2  justify-center-safe py-2 overflow-y-scroll scrollbar-none">
+      <div className="flex gap-2 justify-center-safe py-2 overflow-y-scroll scrollbar-none">
         {hourly.map((element) => {
           const { dt, temp, weather } = element;
           return (

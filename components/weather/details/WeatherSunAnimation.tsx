@@ -76,21 +76,21 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
     <>
       <WeatherSectionTitle name="Sunrise/Sunset" />
 
-      <div className="flex  flex-col items-center justify-center w-full mt-4 mb-4">
-        <div className="flex flex-col items-center 2xm:text-xs">
+      <div className="flex flex-col items-center justify-center w-full my-4 px-5">
+        <div className="flex flex-col items-center w-full max-w-64">
           <div
             id="progress"
             ref={progressRef}
             style={arcVars}
-            className="relative flex items-end w-64 h-32 6xm:w-32 6xm:h-16 5xm:w-52 5xm:h-28 border-b-4 border-gray-700"
+            className="relative flex items-end w-full aspect-2/1 border-b-4 border-gray-700"
           >
             {/* Clips the arc only, so the sun icon is free to overshoot the box at its peak. */}
             <div
               aria-hidden="true"
               className={[
                 "arc absolute inset-0 overflow-hidden",
-                "after:absolute after:top-0 after:left-0 after:w-64 after:h-64 6xm:after:w-32 6xm:after:h-32 5xm:after:w-52 5xm:after:h-52",
-                "after:border-10 6xm:after:border-[6px] 5xm:after:border-[8px]",
+                "after:absolute after:top-0 after:left-0 after:w-full after:aspect-square",
+                "after:border-10",
                 "after:border-t-orange-500 after:border-r-orange-500 after:border-b-gray-400 after:border-l-gray-400",
                 "after:block after:rounded-full",
                 shouldAnimate ? "arc-animate" : "",
@@ -104,7 +104,7 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
               ].join(" ")}
             >
               <Image
-                className="w-10 h-10 -translate-x-3.75 translate-y-1/2 6xm:w-8 6xm:h-8"
+                className="w-10 h-10 -translate-x-3.25 translate-y-1/2"
                 src="/icons/01d.svg"
                 preload={true}
                 alt="Sun"
@@ -113,8 +113,8 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
               />
             </div>
           </div>
-          <div className="flex justify-between self-stretch 6xm:w-32 5xm:w-52 5xm:self-center">
-            <div className="-translate-x-5/12 flex flex-col self-start  5xm:-translate-x-3.5 6xm:-translate-x-2.5 items-center">
+          <div className="flex justify-between self-stretch">
+            <div className="-translate-x-5/12 flex flex-col self-start items-center">
               <Image
                 className="w-10 h-10"
                 alt="sunrise"
@@ -125,7 +125,7 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
               />
               <span className="text-sm">{sunSetter(sys.sunrise * 1000)}</span>
             </div>
-            <div className="translate-x-5/12 flex flex-col self-start 5xm:translate-x-3.5 6xm:translate-x-3 items-center">
+            <div className="translate-x-5/12 flex flex-col self-start items-center">
               <Image
                 className="w-10 h-10"
                 alt="sunset"
@@ -137,14 +137,16 @@ export function WeatherSunAnimation({ sys, today }: WeatherSunAnimationProps) {
               <span className="text-sm">{sunSetter(sys.sunset * 1000)}</span>
             </div>
           </div>
-          <div className="flex items-center justify-center text-sm">
-            <div className="flex flex-col">
+          <div className="flex items-center justify-center gap-2 text-sm w-full min-w-0">
+            <div className="flex flex-col shrink-0">
               <span>Total Time:</span>
               <span>Time Left:</span>
             </div>
-            <div className="flex flex-col mx-4 ">
-              <span>{sumTotal(sys.sunset - sys.sunrise)}</span>
-              <span>
+            <div className="flex flex-col min-w-0">
+              <span className="truncate">
+                {sumTotal(sys.sunset - sys.sunrise)}
+              </span>
+              <span className="truncate">
                 {sumTotal(sys.sunset - Math.floor(new Date().getTime() / 1000))}
               </span>
             </div>

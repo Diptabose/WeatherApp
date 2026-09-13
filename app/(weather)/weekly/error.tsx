@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { TriangleAlert } from "lucide-react";
+import { WeatherRouteError } from "@/components/weather/WeatherRouteError";
 
 export default function ErrorPage({
   error,
@@ -11,14 +10,10 @@ export default function ErrorPage({
   retry: () => void;
 }) {
   return (
-    <div className="flex flex-col h-full items-center justify-center">
-      <div className="flex flex-col items-center gap-2">
-        <TriangleAlert className="size-10" />
-        <div className="flex flex-col items-center gap-2">
-          <h2>Something went wrong!</h2>
-          <Button onClick={() => retry()}>Try again</Button>
-        </div>
-      </div>
-    </div>
+    <WeatherRouteError
+      error={error}
+      retry={retry}
+      description="We couldn't load the 5 day forecast. Please try again."
+    />
   );
 }

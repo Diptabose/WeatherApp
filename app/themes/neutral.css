@@ -32,6 +32,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /** Custom tokens for app styles*/
+  --surface: oklch(96.7% 0.003 264.542);
+  --title: oklch(58.8% 0.158 241.966);
 }
 
 [data-theme="dark"] {
@@ -66,4 +70,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /** Custom tokens for app styles*/
+  --surface: oklch(0.205 0 0);
+  --title: var(--foreground);
 }

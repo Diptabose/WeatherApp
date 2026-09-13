@@ -13,10 +13,6 @@ const NextDaysPage = async ({ searchParams }: PageProps<"/weekly">) => {
     `/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric`,
   );
   const data = adaptForecast(forecastResponse.data);
-  return (
-    <>
-      <WeatherWeekly weekly={data.daily} />
-    </>
-  );
+  return <WeatherWeekly weekly={data.daily} />;
 };
 export default NextDaysPage;

@@ -1,5 +1,4 @@
 "use client";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectItem,
@@ -8,7 +7,6 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 import { useTheme } from "next-themes";
-import { deregisterPushSubscription } from "@/actions/subscribe-notifcation";
 import { NotificationConfiguration } from "./NotificationConfiguration";
 
 const themeItems = [

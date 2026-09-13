@@ -25,6 +25,6 @@ export async function sendNotification(
     return { success: true, ...result };
   } catch (error) {
     console.error("[WEBPUSH]: Error sending push notification:", error);
-    return { success: false, message: "Failed to send notification", error };
+    throw error;
   }
 }

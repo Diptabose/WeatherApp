@@ -1,8 +1,11 @@
 import { WeatherAqi } from "@/components/weather/aqi/WeatherAqi";
+import { WeatherAqiSkeleton } from "@/components/weather/aqi/WeatherAqiSkeleton";
 import WeatherDetails from "@/components/weather/details/WeatherDetails";
 import { WeatherSunAnimation } from "@/components/weather/details/WeatherSunAnimation";
+import { WeatherHourlySkeleton } from "@/components/weather/hourly/WeatherHourlySkeleton";
 import { WeatherOneCall } from "@/components/weather/hourly/WeatherOneCall";
 import { WeatherReport } from "@/components/weather/today/WeatherReport";
+import { WeatherSectionErrorBoundary } from "@/components/weather/WeatherSectionError";
 import { weatherClient } from "@/services/weather.server-client";
 import { WeatherData } from "@/types/weather.types";
 import { Suspense } from "react";
@@ -22,14 +25,18 @@ const TodayPage = async ({ searchParams }: PageProps<"/today">) => {
   return (
     <>
       <WeatherReport weatherData={data} place={data.name} />
-      <Suspense fallback={<>One call loading...</>}>
-        <WeatherOneCall lat={lat as string} lon={lon as string} />
-      </Suspense>
+      <WeatherSectionErrorBoundary title="the hourly forecast">
+        <Suspense fallback={<WeatherHourlySkeleton />}>
+          <WeatherOneCall lat={lat as string} lon={lon as string} />
+        </Suspense>
+      </WeatherSectionErrorBoundary>
       <WeatherDetails weatherData={data} today={true} />
       <WeatherSunAnimation sys={data.sys} today={true} />
-      <Suspense fallback={<>Doing some loading...</>}>
-        <WeatherAqi lat={lat as string} lon={lon as string} />
-      </Suspense>
+      <WeatherSectionErrorBoundary title="the air quality index">
+        <Suspense fallback={<WeatherAqiSkeleton />}>
+          <WeatherAqi lat={lat as string} lon={lon as string} />
+        </Suspense>
+      </WeatherSectionErrorBoundary>
     </>
   );
 };

@@ -12,9 +12,9 @@ export function WeatherReport({ weatherData, place }: WeatherReportProps) {
   const { weather, main, clouds, wind, dt } = weatherData;
 
   const weatherreport = (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col min-w-0 justify-center">
       <div>{greeter()}</div>
-      <div id="loactionName" className="text-2xl font-bold 2xm:text-xl">
+      <div id="loactionName" className="min-w-0 truncate text-2xl font-bold">
         {place}
       </div>
       <div>{new Date(dt * 1000).toDateString()}</div>
@@ -37,7 +37,7 @@ export function WeatherReport({ weatherData, place }: WeatherReportProps) {
           <span className="text-center">
             {capitalise(weather[0].description)}
           </span>
-          <h1 className="temperature my-2 ml-6 text-8xl font-bold 2xm:text-7xl">
+          <h1 className="temperature my-2 text-6xl sm:text-8xl font-bold">
             {Math.ceil(main.temp)}
             <sup className="text-sky-500">°</sup>
           </h1>
@@ -45,43 +45,49 @@ export function WeatherReport({ weatherData, place }: WeatherReportProps) {
       </div>
       <div
         id="3cards"
-        className="flex justify-evenly my-2 md:w-1/2 lg:w-1/2 md:m-auto md:justify-between lg:m-auto lg:justify-between 2xm:text-xs "
+        className="flex justify-evenly gap-2 my-2 text-sm sm:text-base md:w-1/2 lg:w-1/2 md:m-auto md:justify-between lg:m-auto lg:justify-between"
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center min-w-0">
           <Image
-            className="w-14 h-14"
+            className="w-10 h-10 sm:w-14 sm:h-14"
             src="/icons/03d.svg"
             alt="Clouds"
             width={56}
             height={56}
             preload={true}
           />
-          <span className="">{clouds.all}%</span>
-          <span>Clouds</span>
+          <span className="w-full text-center wrap-break-word">
+            {clouds.all}%
+          </span>
+          <span className="w-full text-center wrap-break-word">Clouds</span>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center min-w-0">
           <Image
-            className="w-14 h-14"
+            className="w-10 h-10 sm:w-14 sm:h-14"
             src="/icons/humidity.svg"
             alt="Humidity"
             width={56}
             height={56}
             preload={true}
           />
-          <span>{main.humidity}%</span>
-          <span>Humidity</span>
+          <span className="w-full text-center wrap-break-word">
+            {main.humidity}%
+          </span>
+          <span className="w-full text-center wrap-break-word">Humidity</span>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center min-w-0">
           <Image
-            className="w-14 h-14"
+            className="w-10 h-10 sm:w-14 sm:h-14"
             src="/icons/wind.svg"
             alt="Wind"
             width={56}
             height={56}
             preload={true}
           />
-          <span>{wind.speed}m/s</span>
-          <span>Wind</span>
+          <span className="w-full text-center wrap-break-word">
+            {wind.speed}m/s
+          </span>
+          <span className="w-full text-center wrap-break-word">Wind</span>
         </div>
       </div>
     </div>

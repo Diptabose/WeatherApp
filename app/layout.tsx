@@ -3,6 +3,7 @@ import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { SerwistProvider } from "@serwist/turbopack/react";
+import { Toaster } from "@/components/ui/toast";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="h-full flex flex-col overflow-y-auto">
         <SerwistProvider swUrl="/serwist/sw.js">
           <ThemeProvider themes={themes} storageKey="theme">
-            {children}
+            <Toaster>{children}</Toaster>
           </ThemeProvider>
         </SerwistProvider>
       </body>

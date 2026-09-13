@@ -30,10 +30,20 @@ export async function registerPushSubscription(
     data.deviceId,
     response?._id.toHexString(),
   );
-  await sendNotification(data.subscription, {
-    title: "Welcome",
-    body: "You are now subscribed Weather App's notification. Your current location is choosen to send you weather updates.",
-  });
+  try {
+    const notificationResponse = await sendNotification(data.subscription, {
+      title: "Welcome to WeatherApp",
+      body: "You are now subscribed to receive notifications.",
+    });
+    console.log(
+      "[Notification]: Subscribing Notification",
+      "Success: ",
+      notificationResponse.success,
+    );
+  } catch (error) {
+    console.log("[Notification]: Subscribing Notification", "Error: ", error);
+  }
+
   return { id: response!._id.toString(), deviceId: response!.deviceId };
 }
 

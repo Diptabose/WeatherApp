@@ -8,8 +8,11 @@ export function WeatherTabs() {
   const pathName = usePathname();
   const { geoPosition } = useLocation();
   return (
-    <Tabs value={pathName.slice(1)} className="items-center">
-      <TabsList variant="line" className="gap-10">
+    <Tabs
+      value={pathName.slice(1)}
+      className="items-center-safe w-full overflow-x-auto no-scrollbar"
+    >
+      <TabsList variant="line" className="gap-2 sm:gap-10 justify-center-safe">
         <TabsTrigger
           value="today"
           nativeButton={false}

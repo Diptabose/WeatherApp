@@ -33,7 +33,7 @@ export function WeatherError({ isError, error, children }: WeatherErrorProps) {
     return (
       <div className="flex flex-col gap-4 items-center justify-center h-full">
         <div className="flex flex-col items-center gap-2">
-          <Icon className="size-16" />
+          <Icon className="size-10" />
           <span>{message}</span>
         </div>
         <Button onClick={refetch}>Retry</Button>
