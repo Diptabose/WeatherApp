@@ -64,6 +64,7 @@ export function WeatherSearch() {
       <ComboboxInput
         className="w-full h-11 sm:h-8 has-[[data-slot=input-group-control]:focus-visible]:ring-0 has-[[data-slot=input-group-control]:focus-visible]:border-ring rounded-l-full rounded-r-full bg-surface"
         showTrigger={false}
+        showClear={true}
         placeholder="Search for places"
         inputClassName="items text-base sm:text-sm placeholder:text-base sm:placeholder:text-sm"
       />

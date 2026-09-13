@@ -22,15 +22,15 @@ export function WeatherHeader() {
         <div className="hidden sm:block w-full">
           <WeatherSearch />
         </div>
-        <div className="flex items-center gap-2 sm:gap-1 shrink-0">
+        <div className="flex items-center gap-1 shrink-0">
           <div className="sm:hidden">
             <WeatherRefetch />
           </div>
           <Button
             variant="ghost"
-            size="icon-lg"
+            size="icon"
             nativeButton={false}
-            className="active:scale-90 sm:active:scale-100 transition-transform min-h-11 min-w-11 sm:min-h-0 sm:min-w-0"
+            className="active:scale-90 sm:active:scale-100 transition-transform"
             render={
               <Link
                 href={`/saved-locations?lat=${geoPosition?.lat}&lon=${geoPosition?.lon}`}

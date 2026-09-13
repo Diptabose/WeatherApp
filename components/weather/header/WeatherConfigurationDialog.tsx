@@ -6,7 +6,6 @@ import {
   DialogHeader,
   DialogTrigger,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
 import { Configuration } from "@/components/weather/header/configuration/Configuration";
 import { Menu } from "lucide-react";
@@ -21,8 +20,8 @@ export function WeatherConfigurationDialog() {
     <>
       <Button
         variant="ghost"
-        size="icon-lg"
-        className="active:scale-90 sm:active:scale-100 transition-transform min-h-11 min-w-11 sm:min-h-0 sm:min-w-0"
+        size="icon"
+        className="active:scale-90 sm:active:scale-100 transition-transform"
         onClick={handleOpen}
       >
         <Menu className="size-5" />

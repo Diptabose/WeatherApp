@@ -36,6 +36,15 @@ const batchWorker = new BatchWorker({
 
 export const revalidate = 0;
 export async function GET(request: NextRequest) {
+  // Vercel signs cron invocations with `Authorization: Bearer $CRON_SECRET`.
+  // https://vercel.com/docs/cron-jobs/manage-cron-jobs#securing-cron-jobs
+  // Skipped in dev so the route can be hit locally without provisioning the secret.
+  if (process.env.NODE_ENV === "production") {
+    const authHeader = request.headers.get("authorization");
+    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+  }
   try {
     await dbConnect();
     // Get the endpoints and send the notification in batches.

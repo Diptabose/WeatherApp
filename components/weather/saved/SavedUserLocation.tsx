@@ -39,7 +39,7 @@ function SavedLocationRoot({ children }: PropsWithChildren) {
 
 function SavedLocationGrid({ children }: PropsWithChildren) {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(auto,200px))] gap-2">
+    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
       {children}
     </div>
   );
